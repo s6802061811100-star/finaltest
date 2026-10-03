@@ -1,5 +1,7 @@
 import {readFile,writeFile} from 'node:fs/promises';
-const data=await readFile('public/assets/demo-data.json','utf8'),css=await readFile('public/assets/style.css','utf8'),logo=await readFile('public/assets/logo.svg','utf8');
+const data=await readFile('public/assets/demo-data.json','utf8'),rawCss=await readFile('public/assets/style.css','utf8'),logo=await readFile('public/assets/logo.svg','utf8');
+const font=await readFile('public/assets/fonts/NotoSansThai.ttf');
+const css=rawCss.replaceAll('/assets/fonts/NotoSansThai.ttf','data:font/ttf;base64,'+font.toString('base64'));
 const sources=[];for(const file of ['model.js','export.js','charts.js','app.js']){
  let js=await readFile('public/assets/'+file,'utf8');js=js.replace(/^import .*;\n/gm,'').replace(/^export /gm,'');
  if(file==='app.js')js=js.replace(/start\(\);\s*$/,'').replaceAll('/assets/logo.svg','data:image/svg+xml;base64,'+Buffer.from(logo).toString('base64')).replaceAll('href="/"','href="#"');

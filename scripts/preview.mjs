@@ -2,7 +2,7 @@ import http from 'node:http';
 import {readFile} from 'node:fs/promises';
 import path from 'node:path';
 const root=path.resolve('public');
-const mime={'.html':'text/html; charset=utf-8','.css':'text/css','.js':'text/javascript','.json':'application/json','.svg':'image/svg+xml'};
+const mime={'.html':'text/html; charset=utf-8','.css':'text/css','.js':'text/javascript','.json':'application/json','.svg':'image/svg+xml','.ttf':'font/ttf'};
 http.createServer(async(req,res)=>{
  const url=new URL(req.url,'http://localhost');
  if(url.pathname.startsWith('/api')) {res.writeHead(503,{'Content-Type':'application/json'});res.end(JSON.stringify({ok:false,error:{code:'SETUP_REQUIRED',message:'ตัวอย่างในเครื่อง: เปิด /?demo=1 เพื่อดู UI หรือใช้ Vercel สำหรับฐานข้อมูลจริง'}}));return;}

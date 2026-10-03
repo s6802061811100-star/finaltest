@@ -1,8 +1,21 @@
-# คู่มือติดตั้ง R-FUND Insight 1.0.1
+# คู่มือติดตั้ง R-FUND Insight 1.0.2
 
 ใช้ Google Sheet ไฟล์นี้เป็นฐานข้อมูล: https://docs.google.com/spreadsheets/d/1WhvjrX5mX6DHbqLVrxbt76VLYjuNJR4S_Edb9Rjf2vs/edit
 
 ระบบนี้ใช้ **GitHub → Vercel → Google Apps Script → Google Sheet** และมี API `/api/dispatch` สำหรับ Login และ CRUD
+
+## อัปเดตจาก 1.0.1 (สำหรับระบบที่ติดตั้งแล้ว)
+
+1. แตก ZIP รุ่น 1.0.2 แล้วเปิดโฟลเดอร์ `r-fund-insight-vercel`
+2. ไป GitHub repository เดิม เช่น `finaltest` → Add file → Upload files
+3. ลากไฟล์และโฟลเดอร์ทั้งหมดภายในโฟลเดอร์นั้นไปทับของเดิม อย่าอัปโหลดโฟลเดอร์ครอบ
+4. กด Commit changes ข้อความ `Update R-FUND Insight v1.0.2 Admin Funding Management and Responsive Fonts`
+5. รอ Vercel Deployment ใหม่เป็น Ready แล้วเปิดเว็บจริงและรีเฟรชหน้า
+6. เข้าด้วยบัญชี ADMIN → จัดการข้อมูลเงินทุน → กดแก้ไขที่ต้นแถว หรือเพิ่มคณะใหม่และกรอกเงินทุน
+
+ใช้ Apps Script, Sheet, URL /exec และ API_SHARED_SECRET เดิมได้ **ไม่ต้องวางโค้ด Apps Script ใหม่ ไม่ต้องรัน setupSystem ซ้ำ และไม่ต้องสร้าง Sheet ใหม่**
+
+ถ้าไม่เห็นเมนูจัดการ ให้ตรวจบทบาทมุมขวาบนต้องเป็น ADMIN และเลขเวอร์ชันต้องเป็น 1.0.2 ไฟล์ Preview.html และบัญชี OWNER เป็นหน้าดูข้อมูลเท่านั้น
 
 ## 1. เตรียม Google Apps Script
 
@@ -34,11 +47,11 @@
 
 ## 3. อัปเดตไฟล์ใน GitHub
 
-1. ดาวน์โหลดและแตก ZIP ชุด Vercel 1.0.1
+1. ดาวน์โหลดและแตก ZIP ชุด Vercel 1.0.2
 2. เปิด Repository `finaltest` ที่เลือกไว้ หรือ Repository ที่คุณต้องการใช้
 3. เลือก **Add file → Upload files**
 4. เปิดโฟลเดอร์ `r-fund-insight-vercel` ในเครื่อง แล้วลาก **ไฟล์และโฟลเดอร์ภายในทั้งหมด** ไปอัปโหลด โดย package.json และ vercel.json ต้องอยู่ระดับบนสุด ไม่อัปโหลดโฟลเดอร์ครอบซ้อนอีกชั้น
-5. กด Commit changes ใช้ข้อความ `Update R-FUND Insight v1.0.1 Vercel Hosting`
+5. กด Commit changes ใช้ข้อความ `Update R-FUND Insight v1.0.2 Admin Funding Management and Responsive Fonts`
 6. ตรวจหน้าแรก Repository ต้องเห็น `api`, `server`, `public`, `scripts`, `apps-script`, `package.json`, `vercel.json`
 
 หากมีโฟลเดอร์ `functions` ของชุด Cloudflare เดิมอยู่ Vercel รุ่นนี้ไม่ได้เรียกใช้งานโฟลเดอร์นั้น

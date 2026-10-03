@@ -61,3 +61,13 @@ test('rate limiting, formula injection prevention, and expired sessions',()=>{
  const a=b.login('admin'),r=b.call('saveFunding',{academic_year:2569,faculty_id:'FAC001',teacher_count:5,internal_fund:5,external_fund:0,score:0,note:'=IMPORTXML("url")'},a);assert.equal(r.ok,true);assert.ok(b.sheets.get('FundingData').cells.at(-1)[10].startsWith("'="));
  b.sheets.get('Sessions').cells[1][2]='2000-01-01T00:00:00.000Z';assert.equal(b.call('bootstrap',{},a).error.code,'UNAUTHORIZED');
 });
+test('Admin creates a new faculty, adds and edits funding, and renamed faculty appears with recalculated values and audit history',()=>{
+ const b=makeBackend(),a=b.login('admin');
+ const faculty=b.call('saveFaculty',{faculty_name:'คณะใหม่สำหรับทดสอบ',active:true},a);assert.equal(faculty.ok,true);const id=faculty.data.faculty_id;
+ assert.equal(b.call('saveFaculty',{faculty_name:'คณะใหม่สำหรับทดสอบ',active:true},a).error.code,'DUPLICATE');
+ const added=b.call('saveFunding',{academic_year:2569,faculty_id:id,teacher_count:10.5,internal_fund:100.25,external_fund:350.5,score:4.25,score_mode:'MANUAL'},a);assert.equal(added.ok,true);
+ const edited=b.call('saveFunding',{...added.data,teacher_count:12.5,internal_fund:200.25,external_fund:1000.5,score:4.75},a);assert.equal(edited.ok,true);assert.equal(edited.data.total_fund,1200.75);assert.equal(edited.data.average_per_teacher,1200.75/12.5);assert.equal(edited.data.score,4.75);assert.equal(edited.data.revision,2);
+ assert.equal(b.call('saveFaculty',{faculty_id:id,faculty_name:'คณะใหม่ที่แก้ชื่อแล้ว',active:true},a).ok,true);
+ const rows=b.call('bootstrap',{},a).data.funding;assert.equal(rows.length,29);const result=rows.find(r=>r.record_id===edited.data.record_id);assert.equal(result.faculty_name,'คณะใหม่ที่แก้ชื่อแล้ว');assert.equal(result.total_fund,1200.75);
+ const audit=b.call('adminData',{},a).data.audit;assert.ok(audit.some(r=>r.action==='UPDATE_FUNDING'&&r.entity_id===edited.data.record_id));assert.ok(audit.some(r=>r.action==='SAVE_FACULTY'&&r.entity_id===id));
+});
