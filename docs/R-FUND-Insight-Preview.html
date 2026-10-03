@@ -1,0 +1,739 @@
+<!doctype html><html lang="th"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>R-FUND Insight — UI Preview</title><style>:root{--bg:#e6ecf2;--ink:#25344c;--muted:#6b7a90;--blue:#347dfa;--purple:#4835f7;--border:#d5dee9;--shadow:12px 12px 28px #bdc8d57d,-10px -10px 24px #ffffffbd;--inset:inset 5px 5px 10px #c4cedc77,inset -5px -5px 10px #ffffffbe;--radius:26px;font-family:"Noto Sans Thai","Tahoma",system-ui,sans-serif;color:var(--ink);font-size:14px;line-height:1.6}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 75% 0%,#dde8ec,transparent 65%),var(--bg);min-height:100vh}a{color:var(--purple)}button,input,select,textarea{font:inherit;color:inherit}button{cursor:pointer;border:0}button:disabled{cursor:wait;opacity:.55}button:focus-visible,a:focus-visible{outline:3px solid #4d79fc;outline-offset:4px}input:focus,select:focus,textarea:focus{outline:2px solid #5777fb;outline-offset:2px}h1,h2,h3,p{margin:0}h1{font-size:31px;line-height:1.4;letter-spacing:-.8px;font-weight:700}h2{font-size:18px;line-height:1.5;font-weight:650;letter-spacing:-.3px}h3{font-size:15px;margin:12px 0}small{font-size:11px}.soft{background:linear-gradient(125deg,#f7f9fce8,#e9edf3e8);border:1px solid #fff8;border-radius:var(--radius);box-shadow:var(--shadow)}.icon{width:21px;height:21px;flex-shrink:0;vertical-align:middle}.brand{display:flex;align-items:center;gap:12px;font-size:21px;font-weight:750;color:var(--ink);text-decoration:none;letter-spacing:-.8px}.brand img{width:43px;height:43px;border-radius:14px;box-shadow:5px 7px 14px #616bed30}.brand-light{display:block;font-size:13px;font-weight:450;letter-spacing:3.2px;margin-top:-5px;color:var(--muted)}.eyebrow{display:block;font-size:10px;letter-spacing:2.4px;font-weight:750;color:#7c89a0;margin-bottom:7px}.caption{color:var(--muted);font-size:12px;line-height:1.8;margin:8px 0 18px}.muted{color:var(--muted)}.tiny{font-size:10px;letter-spacing:1.2px;color:var(--muted)}.primary,.outline{padding:11px 20px;border-radius:15px;display:inline-flex;align-items:center;justify-content:center;gap:9px;white-space:nowrap;font-weight:600}.primary{color:white;background:linear-gradient(110deg,#2497f1,#4c2dff);box-shadow:5px 7px 16px #4b54d72b}.primary:hover{filter:brightness(1.06);transform:translateY(-1px)}.outline{border:1px solid #bac6d4;background:transparent}.outline:hover{background:#ffffff65}.wide{width:100%}.small{padding:6px 10px;font-size:12px;border-radius:11px}.bare,.text-button{background:transparent;color:var(--muted)}.text-button{color:var(--purple);display:flex;align-items:center;gap:5px;font-size:12px}.icon-button{width:40px;height:40px;display:grid;place-items:center;border-radius:13px;background:transparent;color:var(--muted);font-size:25px}.icon-button:hover{background:#ffffff80}.positive{color:#16845d}.negative,.danger-text{color:#c34c61}.neutral{color:var(--muted)}.danger-text{background:transparent}.danger{background:linear-gradient(110deg,#de7581,#b53a57)}.pill,.status-pill{border:1px solid #ccd6e3;border-radius:40px;padding:5px 12px;font-size:11px;color:var(--muted);white-space:nowrap}.live-dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:#31b08b;margin-right:7px;box-shadow:0 0 0 4px #31b08b13}.field{display:flex;flex-direction:column;gap:9px;font-size:12px;font-weight:600;margin-bottom:20px}.field input,.field select,.field textarea,.filters input,.filters select{border:1px solid #d2dce7;background:#e7edf3;border-radius:13px;box-shadow:var(--inset);padding:11px 14px;min-height:45px;min-width:0;width:100%;font-size:14px}.field textarea{resize:vertical}.field input[readonly]{background:#dde5ef;color:var(--muted)}.form-error{color:#b93756;font-size:12px;margin:8px 0;min-height:18px}.notice{background:#fff2d4;padding:15px 20px;border-radius:18px;margin:20px 0;color:#795823}.empty{padding:35px 15px;text-align:center;color:var(--muted)}.initial{display:grid;place-items:center;min-height:100vh;color:var(--muted)}
+/* Login — raised white surfaces, blue-to-violet accents. */
+.login-layout{max-width:1180px;margin:auto;min-height:100vh;display:grid;grid-template-columns:1.2fr 1fr;gap:110px;align-items:center;padding:65px 40px}.login-story .brand{margin-bottom:56px}.login-story h1{font-size:48px;letter-spacing:-1.5px;margin:16px 0 23px;line-height:1.45}.login-story h1 span{color:#474de0}.login-story>p{font-size:15px;color:var(--muted);line-height:1.9}.login-illustration{height:230px;position:relative;margin-top:34px}.floating-card{position:absolute;left:15px;top:5px;width:320px;padding:22px 26px;border-radius:33px;box-shadow:var(--shadow);background:linear-gradient(110deg,#fcfdfe,#ebeff4);transform:rotate(-5deg)}.mini-line{margin-top:15px}.mini-line svg{width:100%;height:80px}.skeleton{height:8px;border-radius:6px;background:linear-gradient(90deg,#347dfa,#4835f7);width:60%;margin-top:10px}.floating-icon{position:absolute;left:310px;top:110px;width:85px;height:85px;border-radius:26px;box-shadow:var(--shadow);display:grid;place-items:center;background:linear-gradient(120deg,#f9fbfe,#e8edf4);color:#4a36f8;transform:rotate(8deg)}.floating-icon .icon{width:34px;height:34px}.floating-pill{position:absolute;top:200px;left:45px;display:flex;align-items:center;gap:16px;padding:10px 25px;box-shadow:var(--shadow);background:#f4f7fa;border-radius:30px;font-size:11px;color:var(--muted)}.login-foot{font-size:11px;color:var(--muted);display:block;margin-top:50px}.login-card{padding:48px 40px;border-radius:42px}.login-card h2{font-size:29px;margin:7px 0 8px}.login-card>p{color:var(--muted);font-size:13px;margin-bottom:35px}.login-card .field{margin-bottom:27px}.input-icon{position:relative}.input-icon input{padding-right:50px}.input-icon>.icon,.input-icon>.bare{position:absolute;right:12px;top:12px;color:var(--muted)}.input-icon>.bare{padding:0}.login-card .primary{border-radius:30px;padding:16px;margin-top:15px;font-size:15px;box-shadow:7px 10px 20px #685df342}.login-help{font-size:11px;color:var(--muted);text-align:center;margin-top:24px}.login-note{display:flex;align-items:center;justify-content:center;gap:8px;border-top:1px solid #d7e0e9;margin-top:30px;padding-top:23px;font-size:10px;color:var(--muted)}.login-note .icon{width:15px;height:15px}
+/* Workspace */
+.app-layout{display:grid;grid-template-columns:245px minmax(0,1fr);min-height:100vh;max-width:1800px;margin:auto}.sidebar{padding:30px 24px;display:flex;flex-direction:column;border-right:1px solid #f3f7fb77;position:sticky;top:0;height:100vh;overflow:auto}.sidebar .brand{margin-bottom:46px}.sidebar-label{font-size:9px;letter-spacing:2px;color:#8b97ab;font-weight:700;margin:0 12px 13px}.sidebar nav .sidebar-label{margin-top:32px}.nav-item{background:transparent;display:flex;align-items:center;gap:14px;width:100%;text-align:left;padding:13px 16px;color:#687a90;margin-bottom:7px;border-radius:16px;font-size:13px}.nav-item .icon{width:19px;height:19px}.nav-item:hover{background:#f3f6fa88}.nav-item.active{background:linear-gradient(130deg,#fdfefe,#eaf0f6);box-shadow:6px 7px 15px #bcc9d675,-5px -5px 12px #ffffffb5;color:#4944ec;font-weight:650}.sidebar-bottom{padding:20px;margin-top:auto;border-radius:22px}.db-label{font-size:12px;font-weight:650}.sidebar-bottom p{font-size:10px;color:var(--muted);margin:8px 0 12px}.sidebar-bottom .tiny{font-size:8px}.workspace{min-width:0;padding:0 38px 22px}.topbar{display:flex;align-items:center;justify-content:space-between;min-height:95px;border-bottom:1px solid #d5dee6;margin-bottom:31px}.breadcrumbs{font-size:11px;color:var(--muted)}.breadcrumbs>span{padding:0 12px;color:#98a4b5}.topbar-actions{display:flex;gap:14px;align-items:center}.profile{display:flex;align-items:center;gap:10px;border-radius:17px;padding:8px 15px 8px 8px;text-align:left;box-shadow:5px 5px 15px #c2ccd650,-5px -5px 15px #ffffff60}.avatar{width:34px;height:34px;display:grid;place-items:center;border-radius:11px;background:linear-gradient(115deg,#309bfa,#4c38f2);color:white;font-size:15px}.profile b{font-size:11px}.profile small{display:block;color:var(--muted);font-size:8px;letter-spacing:1px}.page-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:27px;gap:20px}.page-head p{font-size:12px;color:var(--muted);margin-top:8px}.status-pill{padding:8px 16px;font-size:11px}.status-pill small{display:block;margin-left:14px;font-size:9px;line-height:1.5}.filters{display:flex;align-items:end;gap:20px;padding:17px 22px;margin-bottom:28px;border-radius:22px;box-shadow:7px 7px 18px #c5cfd85c,-6px -6px 16px #ffffff99}.filters label{display:flex;flex-direction:column;gap:7px;font-size:10px;color:var(--muted);font-weight:600;min-width:135px;max-width:350px}.filters label:nth-child(2){flex:1}.filters input,.filters select{box-shadow:none;background:#e7edf0;border:1px solid #d7e0ea;font-size:12px;min-height:39px;padding:8px 12px}.filters .outline{font-size:11px;min-height:39px;padding:7px 16px}.search-field{flex:1}.kpi-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:23px;margin-bottom:29px}.kpi{padding:22px;min-height:158px;border-radius:25px}.kpi-top{display:flex;align-items:center;justify-content:space-between;font-size:11px;color:var(--muted);margin-bottom:16px;gap:6px}.kpi-icon{width:32px;height:32px;border-radius:11px;box-shadow:var(--inset);background:#e8edf4;display:grid;place-items:center;color:#606bdd}.kpi-icon .icon{width:16px;height:16px}.kpi-value{font-size:30px;font-weight:750;letter-spacing:-1px;line-height:1.3;white-space:nowrap}.kpi-value small{font-size:10px;color:var(--muted);font-weight:400;letter-spacing:0;margin-left:6px}.delta{font-size:10px;font-weight:650;display:inline-block;margin-top:9px}.kpi-sub{font-size:9px;color:var(--muted);display:block;margin-top:12px}.dashboard-grid{display:grid;grid-template-columns:minmax(0,1.8fr) minmax(270px,1fr);gap:27px}.panel{padding:26px 28px;margin-bottom:27px;min-width:0}.dashboard-grid .panel{margin-bottom:0}.panel-title{display:flex;align-items:center;justify-content:space-between;gap:18px;margin-bottom:5px}.panel-title>.text-button{white-space:nowrap}.legend{display:flex;gap:18px;align-items:center;flex-wrap:wrap;font-size:10px;color:var(--muted);margin:15px 0 20px}.legend span{display:flex;align-items:center;gap:6px}.legend small{margin-left:auto;font-size:9px}.dot{width:8px;height:8px;display:inline-block;flex-shrink:0;border-radius:50%;margin-right:5px}.c0{background:#8797af}.c1{background:linear-gradient(90deg,#2299f5,#4a34ff)}.bar-row{display:grid;grid-template-columns:155px minmax(0,1fr);gap:15px;align-items:center;margin-bottom:19px}.bar-row:last-child{margin-bottom:0}.bar-label{font-size:10px;color:#5b6b82;line-height:1.7;word-break:break-word}.bar-series{min-width:0}.bar-track{background:#dbe3ed80;position:relative;height:12px;margin:6px 80px 6px 0;border-radius:8px;box-shadow:inset 2px 2px 5px #bdc8d940}.bar-fill{height:12px;border-radius:7px;min-width:0}.bar-track>span{position:absolute;left:calc(100% + 10px);top:-2px;font-size:8px;color:#748299;white-space:nowrap;font-variant-numeric:tabular-nums}.donut-wrap{display:flex;justify-content:center;padding:3px 0 6px}.donut-wrap svg{width:205px;height:205px;filter:drop-shadow(5px 6px 5px #c8d1dc77)}.donut-value{font-family:inherit;font-size:23px;fill:var(--ink);font-weight:750;letter-spacing:-.6px}.donut-label{font-family:inherit;font-size:9px;fill:var(--muted)}.source-row{display:flex;align-items:center;justify-content:space-between;gap:10px;border-top:1px solid #d7e0e9;padding:11px 0;font-size:10px}.source-row b{font-size:11px;font-variant-numeric:tabular-nums}.trend-svg{width:100%;margin-top:12px;max-height:210px;overflow:visible}.trend-svg text{font-size:11px;fill:var(--muted);font-family:inherit}.metric-line{padding:14px 0;border-bottom:1px solid #d7e0e9;display:flex;flex-direction:column;gap:6px}.metric-line>span{font-size:10px;color:var(--muted)}.metric-line strong{font-size:26px;font-weight:700;letter-spacing:-.7px}.metric-line small{font-size:10px;font-weight:400;color:var(--muted)}.score-track{height:9px;margin-top:19px;border-radius:10px;background:#d5deea;box-shadow:var(--inset)}.score-track>span{display:block;background:linear-gradient(90deg,#2099f4,#4a2fff);height:9px;border-radius:10px}.insight-panel .caption{font-size:10px;margin:14px 0 0}.source-caption{font-size:10px;color:var(--muted);margin:24px 0 0}footer{display:flex;align-items:center;justify-content:space-between;font-size:9px;color:#8c98a9;margin-top:34px;border-top:1px solid #d5dee6;padding-top:20px}.compare-kpis{grid-template-columns:repeat(3,minmax(0,1fr))}.vs{font-size:12px;letter-spacing:1px;color:var(--purple);align-self:center;padding-top:12px}.settings-grid{display:grid;grid-template-columns:1fr 1.3fr;gap:25px}.settings-grid .panel{margin-bottom:25px}.demo-banner{position:sticky;z-index:5;top:0;background:#353873;color:white;font-size:11px;padding:8px 20px;text-align:center}.demo-banner a{color:#c2d8ff;margin-left:20px}.demo-banner+.app-layout .sidebar{top:34px;height:calc(100vh - 34px)}
+/* Tables */
+.table-wrap{overflow:auto;width:100%;margin-top:20px}table{width:100%;border-collapse:collapse;font-size:11px;white-space:nowrap}th{text-align:left;color:var(--muted);font-weight:600;font-size:10px;padding:14px 12px;border-bottom:1px solid #c8d3e2;background:#e5ebf480}td{padding:14px 12px;border-bottom:1px solid #dce3ec}td b{font-weight:550}td:nth-child(2){min-width:175px;white-space:normal;max-width:320px}.numeric{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}.total{color:#4448d9;font-weight:600}.table-note{display:block;font-size:9px;font-weight:400;color:#8a97aa;max-width:280px;line-height:1.6;margin-top:4px}.year-tag{background:#dae3f7;color:#5b68bd;border-radius:8px;padding:4px 8px;font-size:10px}.score-badge{background:#e4e9fa;color:#6563b0;padding:4px 8px;border-radius:9px}.row-actions{display:flex;gap:9px;align-items:center;flex-wrap:wrap}.table-total{padding:19px 12px 0;font-weight:650;color:#4753a4;display:flex;justify-content:space-between;gap:20px;font-size:12px}.table-total span{font-weight:400;color:var(--muted)}.id-cell{font-size:9px;max-width:180px;overflow:hidden;text-overflow:ellipsis}.print-heading{display:none}
+/* Dialogs & feedback */
+dialog{border:1px solid #ffffffce;background:linear-gradient(130deg,#f7f9fc,#e7edf5);border-radius:30px;padding:30px;width:650px;max-width:calc(100vw - 32px);max-height:90vh;box-shadow:18px 24px 60px #33415740;color:var(--ink);animation:appear .2s ease-out}dialog::backdrop{background:#374d6960;backdrop-filter:blur(8px)}.modal-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px}.modal-header h2{font-size:24px}.modal-footer{display:flex;justify-content:flex-end;gap:12px;margin-top:24px}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 20px}.span-two{grid-column:span 2}.calculated{box-shadow:var(--inset);background:#e5ebf2;padding:17px;border-radius:18px;margin-bottom:22px;display:flex;justify-content:space-between;gap:15px;color:var(--muted);font-size:11px}.calculated b{display:block;font-size:18px;color:#5054b9;font-weight:650}pre{white-space:pre-wrap;word-break:break-word;background:#dfe6f0;padding:14px;border-radius:14px;font-size:11px;line-height:1.7}#toast{position:fixed;bottom:25px;left:50%;transform:translate(-50%,20px);background:#2e3d5a;color:white;padding:13px 23px;border-radius:17px;box-shadow:8px 8px 25px #29385238;opacity:0;pointer-events:none;transition:.2s;z-index:30;font-size:12px;max-width:90vw}#toast.show{opacity:1;transform:translate(-50%,0)}#toast.error{background:#ae3c55}@keyframes appear{from{opacity:0;transform:scale(.97)}to{opacity:1;transform:scale(1)}}
+@media(min-width:1500px){.workspace{padding:0 55px 25px}.kpi{padding:27px}.kpi-value{font-size:35px}.bar-row{grid-template-columns:190px 1fr}.bar-label{font-size:11px}}
+@media(max-width:1150px){.app-layout{grid-template-columns:210px minmax(0,1fr)}.sidebar{padding:28px 17px}.workspace{padding:0 25px 20px}.kpi-grid{gap:15px}.kpi{padding:18px 15px}.kpi-value{font-size:26px}.kpi-value small{display:block;margin:3px 0}.dashboard-grid{grid-template-columns:minmax(0,1.6fr) minmax(245px,1fr);gap:20px}.panel{padding:22px 20px}.bar-row{grid-template-columns:125px minmax(0,1fr);gap:10px}.login-layout{gap:60px}.login-story h1{font-size:42px}}
+@media(max-width:900px){.app-layout{grid-template-columns:82px minmax(0,1fr)}.sidebar{padding:24px 14px}.sidebar .brand{justify-content:center}.sidebar .brand>span,.sidebar-label,.nav-item>span,.sidebar-bottom{display:none}.nav-item{padding:15px;justify-content:center;border-radius:18px;margin-bottom:15px}.workspace{padding:0 24px 22px}.kpi-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.kpi-value small{display:inline-block;margin-left:6px}.dashboard-grid{grid-template-columns:minmax(0,1fr)}.main-chart+.panel{display:grid;grid-template-columns:1fr 1fr;align-items:center}.main-chart+.panel>.eyebrow{grid-column:1}.main-chart+.panel>h2{grid-column:1}.main-chart+.panel>.donut-wrap{grid-column:2;grid-row:1 / 5}.main-chart+.panel>.source-row{grid-column:1}.bar-row{grid-template-columns:180px 1fr}.filters{flex-wrap:wrap;gap:12px}.filters label{flex:1}.settings-grid{grid-template-columns:1fr}.login-layout{gap:40px;padding:35px;grid-template-columns:1fr 1fr}.login-story h1{font-size:35px}.login-story>p{font-size:12px}.login-card{padding:35px 25px}.floating-card{width:250px;left:0}.floating-icon{left:210px}.floating-pill{left:15px;font-size:9px}.login-foot{font-size:9px}}
+@media(max-width:600px){.app-layout{display:block}.sidebar{height:auto;position:static;padding:18px 20px 8px;overflow:visible;border:0}.sidebar .brand{justify-content:flex-start;margin:0 0 20px}.sidebar .brand>span{display:block}.sidebar nav{display:flex;gap:8px;overflow-x:auto;padding:0 0 16px}.nav-item{width:auto;min-width:70px;flex-shrink:0;flex-direction:column;gap:6px;padding:12px 10px;margin:0}.nav-item>span{display:block;font-size:9px;white-space:nowrap}.nav-item .icon{width:18px;height:18px}.sidebar nav .sidebar-label{display:none}.workspace{padding:0 18px 22px}.topbar{min-height:65px;margin-bottom:23px}.breadcrumbs{font-size:9px}.breadcrumbs>span{padding:0 5px}.topbar-actions{gap:3px}.profile{box-shadow:none;background:transparent;border:0;padding:5px}.profile>span:last-child{display:none}.icon-button{width:32px;height:32px}.page-head{align-items:flex-start;margin-bottom:23px}.page-head h1{font-size:25px}.page-head p{font-size:10px}.status-pill{font-size:8px;padding:7px 9px;margin-top:23px}.status-pill small{font-size:7px}.page-head .eyebrow{font-size:8px}.filters{padding:15px;border-radius:21px;margin-bottom:24px}.filters label{min-width:110px;font-size:9px;max-width:none}.filters .outline{padding:8px;font-size:10px}.kpi-grid{gap:15px;margin-bottom:25px}.kpi{padding:17px 15px;min-height:140px}.kpi-top{font-size:10px;margin-bottom:13px}.kpi-icon{width:27px;height:27px}.kpi-value{font-size:27px}.kpi-value small{font-size:8px;display:block;margin-left:0}.kpi .delta{font-size:9px}.dashboard-grid{gap:24px}.panel{padding:22px 17px;border-radius:23px}h2{font-size:16px}.panel-title{flex-wrap:wrap}.panel-title>.text-button{margin-left:auto}.caption{font-size:10px}.bar-row{grid-template-columns:95px minmax(0,1fr);gap:9px;margin-bottom:17px}.bar-label{font-size:8px}.bar-track{margin-right:69px;height:10px}.bar-fill{height:10px}.bar-track>span{font-size:7px;left:calc(100% + 5px);top:-1px}.legend{gap:10px;font-size:8px}.legend small{font-size:7px}.donut-wrap svg{width:170px;height:170px}.main-chart+.panel{display:block}.source-row{font-size:10px}.main-chart+.panel>.donut-wrap{float:right;width:50%}.main-chart+.panel>.source-row{flex-direction:column;align-items:start;gap:5px;width:46%}.metric-line strong{font-size:26px}.trend-svg text{font-size:12px}.compare-kpis{grid-template-columns:1fr 1fr}.compare-kpis .kpi:last-child{grid-column:span 2;min-height:110px}.vs{padding:0;font-size:10px}.table-total{font-size:10px;flex-wrap:wrap}th,td{padding:12px 9px}footer{font-size:8px;gap:12px}.login-layout{display:flex;flex-direction:column;min-height:100vh;padding:35px 25px 40px;gap:30px;align-items:stretch}.login-story .brand{margin-bottom:35px}.login-story h1{font-size:33px;margin:10px 0 15px}.login-story>p{font-size:12px}.login-illustration,.login-foot{display:none}.login-card{padding:30px 25px;border-radius:32px}.login-card h2{font-size:25px}.login-note{font-size:9px}.login-card>p{margin-bottom:28px}.demo-banner{font-size:9px;padding:8px 12px;position:static}.demo-banner a{display:block;margin:0}.demo-banner+.app-layout .sidebar{position:static;height:auto}dialog{padding:23px 20px;border-radius:24px;max-width:calc(100vw - 24px)}.modal-header h2{font-size:20px}.form-grid{grid-template-columns:1fr;gap:0}.span-two{grid-column:span 1}.field{margin-bottom:17px}.calculated{font-size:10px}.calculated b{font-size:16px}.modal-footer{gap:10px}.modal-footer button{padding:10px 15px}.settings-grid{gap:0}.row-actions{gap:7px}.row-actions>.outline,.row-actions>.primary{font-size:10px;padding:8px 12px}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+@media print{@page{size:A4 landscape;margin:12mm}body{background:white;color:black;font-size:10px}.sidebar,.topbar,.page-head,.filters,footer,.demo-banner,.row-actions,.source-caption,#toast,dialog{display:none!important}.app-layout{display:block}.workspace{padding:0}.panel{border:0;border-radius:0;box-shadow:none;background:white;padding:0;margin:0}.print-heading{display:block;margin-bottom:18px}.table-wrap{overflow:visible}table{font-size:8px;white-space:normal;table-layout:fixed}th,td{padding:6px 4px;word-break:break-word;border-color:#aaa}th{background:#eee!important;font-size:8px}td:nth-child(2){min-width:0;max-width:none}.table-note{font-size:7px}.numeric{white-space:normal}.score-badge,.year-tag{background:transparent;padding:0;color:black}.total{color:black}.caption{font-size:8px;color:black}thead{display:table-header-group}tr{break-inside:avoid}.table-total{font-size:10px;color:black}.panel h2{font-size:15px}}
+</style></head><body><div id="app"></div><dialog id="modal" aria-labelledby="modal-title"></dialog><div id="toast" role="status" aria-live="polite"></div><script type="module">const money=n=>n==null?'—':Number(n).toLocaleString('th-TH',{minimumFractionDigits:2,maximumFractionDigits:2});
+const num=n=>n==null?'—':Number(n).toLocaleString('th-TH',{maximumFractionDigits:2});
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function summary(rows){
+ if(!rows.length)return {count:0,internal:null,external:null,total:null,fte:null,average:null,score:null};
+ const internal=rows.reduce((s,r)=>s+Number(r.internal_fund),0),external=rows.reduce((s,r)=>s+Number(r.external_fund),0),fte=rows.reduce((s,r)=>s+Number(r.teacher_count),0);
+ const scores=rows.filter(r=>r.score!=='' && r.score!=null).map(r=>Number(r.score));
+ return {count:rows.length,internal,external,total:internal+external,fte,average:fte>0?(internal+external)/fte:null,score:scores.length?scores.reduce((s,v)=>s+v,0)/scores.length:null};
+}
+function change(current,baseline){return current==null||baseline==null||baseline===0?null:(current-baseline)/baseline*100;}
+function comparisons(rows,a,b){
+ const ids=[...new Set(rows.filter(r=>[Number(a),Number(b)].includes(Number(r.academic_year))).map(r=>r.faculty_id))];
+ return ids.map(id=>{const before=rows.find(r=>r.faculty_id===id && Number(r.academic_year)===Number(a)),after=rows.find(r=>r.faculty_id===id && Number(r.academic_year)===Number(b));
+ return {id,name:(after||before).faculty_name,before:before?Number(before.total_fund):null,after:after?Number(after.total_fund):null,delta:before&&after?Number(after.total_fund)-Number(before.total_fund):null,percent:change(after?Number(after.total_fund):null,before?Number(before.total_fund):null)};});
+}
+function filtered(rows,{year,faculty,search}={}){const q=(search||'').toLocaleLowerCase();return rows.filter(r=>(!year||Number(r.academic_year)===Number(year))&&(!faculty||r.faculty_id===faculty)&&(!q||`${r.faculty_name} ${r.academic_year} ${r.note||''}`.toLocaleLowerCase().includes(q)));}
+const percent=n=>n==null?'—':`${n>0?'+':''}${num(n)}%`;
+const xml=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&apos;'}[c]));
+function csv(rows){return '\uFEFF'+rows.map(row=>row.map(v=>`"${String(typeof v==='string'&&/^[=+\-@\t\r]/.test(v)?"'"+v:v??'').replace(/"/g,'""')}"`).join(',')).join('\r\n');}
+
+const encoder=new TextEncoder();
+const crcTable=Array.from({length:256},(_,n)=>{for(let i=0;i<8;i++)n=n&1?0xedb88320^(n>>>1):n>>>1;return n>>>0;});
+function crc(bytes){let c=0xffffffff;for(const b of bytes)c=crcTable[(c^b)&255]^(c>>>8);return (c^0xffffffff)>>>0;}
+function header(size){const a=new Uint8Array(size);return [a,new DataView(a.buffer)];}
+// Standards-compliant OOXML zip (uncompressed); no CDN, tracking, or paid library.
+function xlsx(rows){
+ const cells=rows.map((r,i)=>`<row r="${i+1}">${r.map((v,j)=>{
+ let col='',k=j+1;while(k){k--;col=String.fromCharCode(65+k%26)+col;k=Math.floor(k/26);}
+ const ref=col+(i+1); return typeof v==='number'&&Number.isFinite(v)?`<c r="${ref}" s="${j>=2?1:0}"><v>${v}</v></c>`:`<c r="${ref}" t="inlineStr"><is><t xml:space="preserve">${xml(v)}</t></is></c>`;
+ }).join('')}</row>`).join('');
+ const files={
+ '[Content_Types].xml':'<?xml version="1.0" encoding="UTF-8"?><Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/><Override PartName="/xl/workbook.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml"/><Override PartName="/xl/worksheets/sheet1.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml"/><Override PartName="/xl/styles.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.styles+xml"/></Types>',
+ '_rels/.rels':'<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="xl/workbook.xml"/></Relationships>',
+ 'xl/workbook.xml':'<workbook xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"><sheets><sheet name="FundingData" sheetId="1" r:id="rId1"/></sheets></workbook>',
+ 'xl/_rels/workbook.xml.rels':'<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet" Target="worksheets/sheet1.xml"/><Relationship Id="rId2" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles" Target="styles.xml"/></Relationships>',
+ 'xl/styles.xml':'<styleSheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main"><fonts count="1"><font><sz val="11"/><name val="Tahoma"/></font></fonts><fills count="2"><fill><patternFill patternType="none"/></fill><fill><patternFill patternType="gray125"/></fill></fills><borders count="1"><border/></borders><cellStyleXfs count="1"><xf numFmtId="0" fontId="0" fillId="0" borderId="0"/></cellStyleXfs><cellXfs count="2"><xf numFmtId="0" fontId="0" fillId="0" borderId="0" xfId="0"/><xf numFmtId="4" fontId="0" fillId="0" borderId="0" xfId="0" applyNumberFormat="1"/></cellXfs><cellStyles count="1"><cellStyle name="Normal" xfId="0" builtinId="0"/></cellStyles></styleSheet>',
+ 'xl/worksheets/sheet1.xml':`<worksheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main"><sheetViews><sheetView workbookViewId="0"><pane ySplit="1" topLeftCell="A2" state="frozen"/></sheetView></sheetViews><cols><col min="1" max="1" width="12" customWidth="1"/><col min="2" max="2" width="48" customWidth="1"/><col min="3" max="9" width="20" customWidth="1"/></cols><sheetData>${cells}</sheetData><autoFilter ref="A1:I${rows.length}"/></worksheet>`};
+ const chunks=[],central=[];let offset=0;
+ for(const [name,content]of Object.entries(files)){
+ const n=encoder.encode(name),bytes=encoder.encode(content),sum=crc(bytes),[local,l]=header(30);
+ l.setUint32(0,0x04034b50,true);l.setUint16(4,20,true);l.setUint16(6,0x800,true);l.setUint32(14,sum,true);l.setUint32(18,bytes.length,true);l.setUint32(22,bytes.length,true);l.setUint16(26,n.length,true);
+ chunks.push(local,n,bytes);const [center,c]=header(46);c.setUint32(0,0x02014b50,true);c.setUint16(4,20,true);c.setUint16(6,20,true);c.setUint16(8,0x800,true);c.setUint32(16,sum,true);c.setUint32(20,bytes.length,true);c.setUint32(24,bytes.length,true);c.setUint16(28,n.length,true);c.setUint32(42,offset,true);central.push(center,n);offset+=30+n.length+bytes.length;
+ } const length=central.reduce((s,a)=>s+a.length,0),[end,e]=header(22);e.setUint32(0,0x06054b50,true);e.setUint16(8,Object.keys(files).length,true);e.setUint16(10,Object.keys(files).length,true);e.setUint32(12,length,true);e.setUint32(16,offset,true);
+ return new Blob([...chunks,...central,end],{type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
+}
+function download(blob,name){const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);}
+function exportCsv(rows,name){download(new Blob([csv(rows)],{type:'text/csv;charset=utf-8'}),name);}
+
+function bars(rows,keys=['total_fund'],labels=['เงินทุนรวม']){
+ if(!rows.length)return '<div class="empty">ไม่มีข้อมูลในตัวกรองนี้</div>';
+ const max=Math.max(...rows.flatMap(r=>keys.map(k=>Number(r[k])||0)),1);
+ return `<div class="legend">${labels.map((l,i)=>`<span><i class="dot c${i}"></i>${esc(l)}</span>`).join('')}<small>หน่วย: บาท</small></div><div class="bars">${rows.map(r=>`<div class="bar-row"><span class="bar-label" title="${esc(r.faculty_name)}">${esc(r.faculty_name)}</span><div class="bar-series">${keys.map((k,i)=>`<div class="bar-track"><div class="bar-fill c${i}" style="width:${Math.max(0,Number(r[k])/max*100)}%"></div><span>${money(r[k])}</span></div>`).join('')}</div></div>`).join('')}</div>`;
+}
+function donut(internal,external){
+ if(internal==null||external==null)return '<div class="empty">ไม่มีข้อมูลแหล่งทุน</div>';
+ const total=internal+external,share=total?external/total:0,c=2*Math.PI*64;
+ return `<div class="donut-wrap"><svg viewBox="0 0 180 180" role="img" aria-label="สัดส่วนทุนภายนอก ${num(share*100)} เปอร์เซ็นต์"><defs><linearGradient id="donutGradient"><stop stop-color="#2097fb"/><stop offset="1" stop-color="#4a2aff"/></linearGradient></defs><circle cx="90" cy="90" r="64" fill="none" stroke="#d1d8e1" stroke-width="17"/><circle cx="90" cy="90" r="64" fill="none" stroke="url(#donutGradient)" stroke-width="17" stroke-linecap="round" stroke-dasharray="${share*c} ${c}" transform="rotate(-90 90 90)"/><text x="90" y="89" text-anchor="middle" class="donut-value">${num(share*100)}%</text><text x="90" y="111" text-anchor="middle" class="donut-label">ทุนภายนอก</text></svg></div><div class="source-row"><span><i class="dot c0"></i>ภายใน</span><b>${money(internal)}</b></div><div class="source-row"><span><i class="dot c1"></i>ภายนอก</span><b>${money(external)}</b></div>`;
+}
+function trend(points){
+ if(!points.length)return '<div class="empty">ไม่มีข้อมูลแนวโน้ม</div>';
+ const w=620,h=180,pad=35,max=Math.max(...points.map(p=>p.value),1),coord=points.map((p,i)=>[points.length===1?w/2:pad+i*(w-pad*2)/(points.length-1),h-pad-(p.value/max)*(h-pad*2)]);
+ const line=coord.map(([x,y])=>`${x},${y}`).join(' ');
+ return `<svg class="trend-svg" viewBox="0 0 ${w} ${h}" role="img" aria-label="เงินทุนรวมแยกตามปี"><defs><linearGradient id="lineGradient"><stop stop-color="#2097fb"/><stop offset="1" stop-color="#4a2aff"/></linearGradient></defs>${[0,1,2].map(i=>`<line x1="${pad}" x2="${w-pad}" y1="${pad+i*(h-pad*2)/2}" y2="${pad+i*(h-pad*2)/2}" stroke="#d4dce5" stroke-dasharray="4 6"/>`).join('')}<polyline points="${line}" fill="none" stroke="url(#lineGradient)" stroke-width="5" stroke-linejoin="round"/>${coord.map(([x,y],i)=>`<g><title>${points[i].year}: ${money(points[i].value)} บาท</title><circle cx="${x}" cy="${y}" r="7" fill="#4539fa"/><text x="${x}" y="${Math.max(16,y-15)}" text-anchor="middle">${num(points[i].value/1e6)} ลบ.</text><text x="${x}" y="${h-6}" text-anchor="middle">${points[i].year}</text></g>`).join('')}</svg>`;
+}
+
+const app=document.querySelector('#app'),modal=document.querySelector('#modal');
+const state={user:null,data:null,admin:null,page:'dashboard',year:'',faculty:'',search:'',compareA:'',compareB:'',demo:false,busy:false};
+const titles={dashboard:'ภาพรวมเงินทุน',funding:'ข้อมูลเงินทุน',compare:'เปรียบเทียบรายปี',faculty:'วิเคราะห์รายคณะ',reports:'รายงาน',faculties:'จัดการคณะ',users:'จัดการผู้ใช้',settings:'ตั้งค่าระบบ',audit:'ประวัติการเปลี่ยนแปลง'};
+const glyphs={dashboard:'grid',funding:'folder',compare:'chart',faculty:'building',reports:'file',faculties:'building',users:'user',settings:'settings',audit:'clock'};
+const svgPaths={grid:'M3 3h7v7H3z M14 3h7v7h-7z M3 14h7v7H3z M14 14h7v7h-7z',folder:'M3 7h7l2-3h9v16H3z',chart:'M4 20V4 M4 20h17 M8 16v-4 M13 16V8 M18 16V5',building:'M4 21V7l8-4 8 4v14 M9 21v-5h6v5 M8 8h1 M15 8h1 M8 12h1 M15 12h1',file:'M6 3h8l4 4v14H6z M14 3v5h4 M9 12h6 M9 16h6',user:'M16 7a4 4 0 1 1-8 0 4 4 0 0 1 8 0 M4 21v-3a6 6 0 0 1 6-6h4a6 6 0 0 1 6 6v3',settings:'M9 3h6l1 4 4 2v6l-4 2-1 4H9l-1-4-4-2V9l4-2z M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0',clock:'M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0 M12 7v5l3 2',arrow:'M5 12h14 M14 7l5 5-5 5',logout:'M10 4H4v16h6 M10 12h11 M17 8l4 4-4 4',refresh:'M20 7V3l-3 3 M20 7a8 8 0 1 0 1 7',plus:'M12 5v14 M5 12h14',eye:'M2 12s4-7 10-7 10 7 10 7-4 7-10 7-10-7-10-7 M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0',menu:'M4 6h16 M4 12h16 M4 18h16',lock:'M6 10h12v11H6z M8 10V6a4 4 0 0 1 8 0v4'};
+const icon=(name)=>`<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="${svgPaths[name]||svgPaths.grid}"/></svg>`;
+const isAdmin=()=>state.user?.role==='ADMIN'&&!state.demo;
+const canWrite=()=>['ADMIN','TEACHER'].includes(state.user?.role)&&!state.demo;
+const years=()=>[...new Set(state.data.funding.map(r=>Number(r.academic_year)))].sort((a,b)=>a-b);
+const bool=v=>v===true||String(v).toLowerCase()==='true';
+function toast(message,error=false){const t=document.querySelector('#toast');t.textContent=message;t.className=error?'show error':'show';clearTimeout(toast.timer);toast.timer=setTimeout(()=>t.className='',6000);}
+async function api(action,payload={}){
+ if(state.demo)throw new Error('ตัวอย่างนี้เปิดให้ดูข้อมูลเท่านั้น');
+ const res=await fetch('/api/dispatch',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action,payload}),credentials:'same-origin'});
+ let result;try{result=await res.json();}catch{throw new Error('ติดต่อ API ไม่สำเร็จ กรุณาตรวจการ Deploy Cloudflare Pages');}
+ if(!result.ok){if(result.error?.code==='UNAUTHORIZED'&&state.user){state.user=null;state.data=null;renderLogin();}throw new Error(result.error?.message||'ระบบทำงานไม่สำเร็จ');}return result.data;
+}
+async function load(){const firstLoad=!state.data,data=await api('bootstrap');state.data=data;state.user=data.user;state.admin=null;if(firstLoad)state.year=String(years().at(-1)||2568);if(!state.compareB)state.compareB=String(years().at(-1)||2568);if(!state.compareA)state.compareA=String(years().filter(y=>y<Number(state.compareB)).at(-1)||years()[0]||2567);}
+function loginMarkup(){return `<main class="login-layout"><section class="login-story"><a class="brand" href="#"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJnIj48c3RvcCBzdG9wLWNvbG9yPSIjMjI5Y2ZmIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjNDkzMWZmIi8+PC9saW5lYXJHcmFkaWVudD48L2RlZnM+PHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iMjAiIGZpbGw9InVybCgjZykiLz48cGF0aCBkPSJNMTggNDNWMjFoMTJjMTEgMCAxMSAxNSAwIDE1SDE4bTExIDAgMTIgMTEiIGZpbGw9Im5vbmUiIHN0cm9rZT0id2hpdGUiIHN0cm9rZS13aWR0aD0iNSIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPjwvc3ZnPgo=" alt=""><span>R-FUND<span class="brand-light">Insight</span></span></a><span class="eyebrow">RESEARCH & CREATIVE FUNDING</span><h1>ทุกทุนวิจัย<br><span>มองเห็นได้ชัดขึ้น</span></h1><p>ข้อมูลที่เป็นระบบ สู่การตัดสินใจที่แม่นยำ<br>เชื่อมภาพรวมเงินทุน คณะ และปีการศึกษาไว้ด้วยกัน</p><div class="login-illustration"><div class="floating-card"><span class="tiny">Funding insight</span><div class="mini-line"><svg viewBox="0 0 320 90" aria-hidden="true"><path d="M4 78C40 70 34 25 80 39S128 83 163 49 196 70 222 37 266 49 315 5" fill="none" stroke="#413afa" stroke-width="5" stroke-linecap="round"/></svg></div><div class="skeleton"></div></div><div class="floating-icon">${icon('chart')}</div><div class="floating-pill">Google Sheets Database <span class="live-dot"></span></div></div><span class="login-foot">ระบบสารสนเทศเงินสนับสนุนงานวิจัยและงานสร้างสรรค์</span></section><section class="login-card soft"><span class="eyebrow">WELCOME BACK</span><h2>เข้าสู่ระบบ</h2><p>ยินดีต้อนรับสู่ R-FUND Insight</p><form id="login-form"><label class="field">ชื่อผู้ใช้<div class="input-icon"><input name="username" required autocomplete="username" placeholder="กรอกชื่อผู้ใช้">${icon('user')}</div></label><label class="field">รหัสผ่าน<div class="input-icon"><input name="password" type="password" required autocomplete="current-password" placeholder="กรอกรหัสผ่าน"><button type="button" class="bare" data-action="eye" aria-label="แสดงรหัสผ่าน">${icon('eye')}</button></div></label><div id="login-error" class="form-error" role="alert"></div><button type="submit" class="primary wide">เข้าสู่ระบบ ${icon('arrow')}</button></form><div class="login-help">ลืมรหัสผ่าน? ติดต่อผู้ดูแลระบบเพื่อรีเซ็ต</div><div class="login-note">${icon('lock')} ตรวจสอบสิทธิ์ก่อนเข้าถึงข้อมูลทุกครั้ง</div></section></main>`;}
+function renderLogin(){app.innerHTML=loginMarkup();}
+function options(list,current,empty){return (empty?`<option value="">${esc(empty)}</option>`:'')+list.map(([v,l])=>`<option value="${esc(v)}" ${String(v)===String(current)?'selected':''}>${esc(l)}</option>`).join('');}
+function facultyOptions(current,empty,activeOnly=false){return options(state.data.faculties.filter(f=>!activeOnly||bool(f.active)).map(f=>[f.faculty_id,f.faculty_name]),current,empty);}
+function filters({allYears=false,search=false}={}){return `<div class="filters soft"><label>ปีการศึกษา<select data-filter="year" aria-label="ปีการศึกษา">${options(years().map(y=>[y,y]),state.year,allYears?'ทุกปี':null)}</select></label><label>คณะ<select data-filter="faculty" aria-label="คณะ">${facultyOptions(state.faculty,'ทุกคณะ')}</select></label>${search?`<label class="search-field">ค้นหาข้อมูล<input data-filter="search" aria-label="ค้นหาข้อมูล" value="${esc(state.search)}" placeholder="ชื่อคณะ / ปี / หมายเหตุ"></label>`:''}<button class="outline" data-action="reset">ล้างตัวกรอง</button></div>`;}
+function selected(){return filtered(state.data.funding,{year:state.year,faculty:state.faculty,search:state.search});}
+function badge(value){return `<span class="delta ${value==null?'neutral':value>=0?'positive':'negative'}">${value==null?'เทียบไม่ได้':(value>=0?'↗ ':'↘ ')+percent(value)}</span>`;}
+function kpi(label,value,unit,delta,iconName='chart'){return `<article class="kpi soft"><div class="kpi-top"><span>${label}</span><span class="kpi-icon">${icon(iconName)}</span></div><div class="kpi-value">${value}<small>${unit}</small></div>${delta!==undefined?badge(delta):'<span class="kpi-sub">ข้อมูลตามตัวกรองปัจจุบัน</span>'}</article>`;}
+function overview(){
+ const rows=selected(),s=summary(rows),previous=years().filter(y=>y<Number(state.year)).at(-1),prior=summary(filtered(state.data.funding,{year:previous,faculty:state.faculty}));
+ // Only compare when a previous year exists; do not label whole-dataset values as a prior year.
+ const delta=k=>previous?change(s[k],prior[k]):null;
+ const timeline=years().map(y=>({year:y,value:summary(filtered(state.data.funding,{year:y,faculty:state.faculty})).total})).filter(p=>p.value!==null);
+ return `${filters()}<div class="kpi-grid">${kpi('เงินทุนรวม',s.total==null?'—':num(s.total/1e6),'ล้านบาท',delta('total'))}${kpi('ทุนภายใน',s.internal==null?'—':num(s.internal/1e6),'ล้านบาท',delta('internal'),'folder')}${kpi('ทุนภายนอก',s.external==null?'—':num(s.external/1e6),'ล้านบาท',delta('external'),'chart')}${kpi('จำนวนอาจารย์',num(s.fte),'คน/FTE',delta('fte'),'user')}</div><div class="dashboard-grid"><article class="panel soft main-chart"><div class="panel-title"><div><span class="eyebrow">FACULTY RANKING</span><h2>เงินทุนแยกตามคณะ</h2></div><button class="text-button" data-page="funding">ดูทั้งหมด ${icon('arrow')}</button></div><p class="caption">6 คณะที่มียอดรวมสูงสุดในปี ${esc(state.year)} · ทุนภายในและภายนอกแสดงแยกกัน</p>${bars([...rows].sort((a,b)=>b.total_fund-a.total_fund).slice(0,6),['internal_fund','external_fund'],['ทุนภายใน','ทุนภายนอก'])}</article><article class="panel soft"><span class="eyebrow">FUNDING MIX</span><h2>สัดส่วนแหล่งทุน</h2>${donut(s.internal,s.external)}</article><article class="panel soft"><div class="panel-title"><div><span class="eyebrow">YEARLY TREND</span><h2>แนวโน้มเงินทุน</h2></div><span class="muted">ล้านบาท</span></div>${trend(timeline)}<p class="caption">แสดงทุกปีที่มีข้อมูลของคณะที่เลือก</p></article><article class="panel soft insight-panel"><span class="eyebrow">PERFORMANCE</span><h2>ประสิทธิภาพเงินทุน</h2><div class="metric-line"><span>เงินทุนต่ออาจารย์/FTE</span><strong>${money(s.average)} <small>บาท</small></strong></div><div class="metric-line"><span>คะแนนเฉลี่ยรายคณะ</span><strong>${s.score==null?'—':s.score.toFixed(4)} <small>/ 5</small></strong></div><div class="score-track"><span style="width:${(s.score||0)/5*100}%"></span></div><p class="caption">ค่าเฉลี่ยต่อ FTE = เงินทุนรวม ÷ FTE รวม<br>คะแนนเฉลี่ย = ค่าเฉลี่ยเลขคณิตรายคณะ ไม่ถ่วงน้ำหนัก</p></article></div><p class="source-caption">อ่านจาก ${state.demo?'ไฟล์ Excel ตัวอย่าง':'Google Sheet'} · ${s.count} รายการ${previous?' · เปรียบเทียบกับปี '+previous:''}</p>`;
+}
+function fundingTable(rows,editable=false){return `<div class="table-wrap"><table><thead><tr><th>ปี</th><th>คณะ</th><th class="numeric">อาจารย์/FTE</th><th class="numeric">ทุนภายใน</th><th class="numeric">ทุนภายนอก</th><th class="numeric">เงินทุนรวม</th><th class="numeric">บาท/FTE</th><th class="numeric">คะแนน</th>${editable?'<th>จัดการ</th>':''}</tr></thead><tbody>${rows.length?rows.map(r=>`<tr><td><span class="year-tag">${r.academic_year}</span></td><td><b>${esc(r.faculty_name)}</b>${r.note?`<small class="table-note">${esc(r.note)}</small>`:''}</td><td class="numeric">${num(r.teacher_count)}</td><td class="numeric">${money(r.internal_fund)}</td><td class="numeric">${money(r.external_fund)}</td><td class="numeric total">${money(r.total_fund)}</td><td class="numeric">${money(r.average_per_teacher)}</td><td class="numeric"><span class="score-badge">${Number(r.score).toFixed(4)}</span></td>${editable?`<td><div class="row-actions"><button data-action="edit-funding" data-id="${esc(r.record_id)}" class="small outline">แก้ไข</button>${isAdmin()?`<button data-action="delete-funding" data-id="${esc(r.record_id)}" class="small danger-text">ลบ</button>`:''}</div></td>`:''}</tr>`).join(''):`<tr><td colspan="${editable?9:8}" class="empty">ไม่มีข้อมูลที่ตรงกับตัวกรอง</td></tr>`}</tbody></table></div>`;}
+function funding(){const rows=selected(),s=summary(rows);return `${filters({allYears:true,search:true})}<article class="panel soft"><div class="panel-title"><div><h2>รายการเงินทุน</h2><p class="caption">${rows.length} รายการ · 1 รายการต่อคณะต่อปีการศึกษา</p></div>${canWrite()?`<button class="primary" data-action="add-funding">${icon('plus')} เพิ่มข้อมูล</button>`:'<span class="pill">ดูข้อมูลเท่านั้น</span>'}</div>${fundingTable(rows,canWrite())}<div class="table-total">รวม ${money(s.total)} บาท <span>FTE รวม ${num(s.fte)}</span></div></article>`;}
+function compare(){
+ const rows=filtered(state.data.funding,{faculty:state.faculty}),a=state.compareA,b=state.compareB,table=comparisons(rows,a,b).sort((x,y)=>(y.delta??-Infinity)-(x.delta??-Infinity));
+ const sa=summary(rows.filter(r=>Number(r.academic_year)===Number(a))),sb=summary(rows.filter(r=>Number(r.academic_year)===Number(b)));
+ return `<div class="filters soft"><label>ปีฐาน<select data-filter="compareA">${options(years().map(y=>[y,y]),a)}</select></label><span class="vs">VS</span><label>ปีเปรียบเทียบ<select data-filter="compareB">${options(years().map(y=>[y,y]),b)}</select></label><label>คณะ<select data-filter="faculty">${facultyOptions(state.faculty,'ทุกคณะ')}</select></label></div>${a===b?'<div class="notice">คุณกำลังเปรียบเทียบปีเดียวกัน เลือกสองปีต่างกันเพื่อดูการเปลี่ยนแปลง</div>':''}<div class="kpi-grid compare-kpis">${kpi('เงินทุนปีฐาน '+a,sa.total==null?'—':num(sa.total/1e6),'ล้านบาท')}${kpi('เงินทุนปี '+b,sb.total==null?'—':num(sb.total/1e6),'ล้านบาท',change(sb.total,sa.total))}${kpi('ส่วนต่างเงินทุน',sa.total==null||sb.total==null?'—':num((sb.total-sa.total)/1e6),'ล้านบาท')}</div><article class="panel soft"><h2>เปรียบเทียบทุกคณะ</h2><p class="caption">ไม่มีข้อมูล = — · ยอดฐานเป็นศูนย์จะไม่คำนวณร้อยละ</p>${bars(table.map(r=>({faculty_name:r.name,before:r.before,after:r.after})),['before','after'],['ปี '+a,'ปี '+b])}<div class="table-wrap"><table><thead><tr><th>คณะ</th><th class="numeric">ปี ${a}</th><th class="numeric">ปี ${b}</th><th class="numeric">ส่วนต่าง (บาท)</th><th class="numeric">เปลี่ยนแปลง</th></tr></thead><tbody>${table.map(r=>`<tr><td>${esc(r.name)}</td><td class="numeric">${money(r.before)}</td><td class="numeric">${money(r.after)}</td><td class="numeric">${money(r.delta)}</td><td class="numeric">${badge(r.percent)}</td></tr>`).join('')||'<tr><td colspan="5" class="empty">ไม่มีข้อมูลเปรียบเทียบ</td></tr>'}</tbody></table></div></article>`;
+}
+function faculty(){
+ const rows=filtered(state.data.funding,{faculty:state.faculty});return `<div class="filters soft"><label>เลือกคณะ<select data-filter="faculty">${facultyOptions(state.faculty,'ทุกคณะ')}</select></label></div><article class="panel soft"><span class="eyebrow">FACULTY INSIGHT</span><h2>${esc(state.data.faculties.find(f=>f.faculty_id===state.faculty)?.faculty_name||'ภาพรวมทุกคณะ')}</h2>${trend(years().map(y=>({year:y,value:summary(rows.filter(r=>Number(r.academic_year)===y)).total})).filter(p=>p.value!=null))}${fundingTable([...rows].sort((a,b)=>b.academic_year-a.academic_year))}</article>`;
+}
+function reportRows(){return [['ปีการศึกษา','คณะ','จำนวนอาจารย์/FTE','ทุนภายใน (บาท)','ทุนภายนอก (บาท)','เงินทุนรวม (บาท)','บาท/FTE','คะแนน','หมายเหตุ'],...selected().map(r=>[Number(r.academic_year),r.faculty_name,Number(r.teacher_count),Number(r.internal_fund),Number(r.external_fund),Number(r.total_fund),Number(r.average_per_teacher),Number(r.score),r.note||''])];}
+function reports(){return `${filters({allYears:true})}<article class="panel soft"><div class="panel-title"><div><span class="eyebrow">REPORTS & EXPORT</span><h2>รายงานเงินสนับสนุนงานวิจัย</h2><p class="caption">ส่งออกเฉพาะรายการที่ตรงกับตัวกรอง</p></div><div class="row-actions"><button class="outline" data-action="export-xlsx">Excel .xlsx</button><button class="outline" data-action="export-csv">CSV</button><button class="primary" data-action="print">พิมพ์ / PDF</button></div></div><div class="print-heading"><h2>รายงานเงินสนับสนุนงานวิจัยและงานสร้างสรรค์</h2><p>ปี ${esc(state.year||'ทุกปี')} · ${esc(state.data.faculties.find(f=>f.faculty_id===state.faculty)?.faculty_name||'ทุกคณะ')}</p></div>${fundingTable(selected())}<div class="table-total">เงินทุนรวม ${money(summary(selected()).total)} บาท</div><p class="caption">คะแนนตามรายการต้นทาง · รายงาน ณ ${new Date().toLocaleString('th-TH')}</p></article>`;}
+function facultyManagement(){return `<article class="panel soft"><div class="panel-title"><h2>ฐานข้อมูลคณะ</h2><button class="primary" data-action="add-faculty">${icon('plus')} เพิ่มคณะ</button></div><p class="caption">ปิดใช้งานคณะเพื่อหยุดการเพิ่มรายการใหม่ ข้อมูลย้อนหลังยังแสดงในรายงาน</p><div class="table-wrap"><table><thead><tr><th>ชื่อคณะ</th><th>สถานะ</th><th>จัดการ</th></tr></thead><tbody>${state.data.faculties.map(f=>`<tr><td>${esc(f.faculty_name)}</td><td>${bool(f.active)?'<span class="positive">เปิดใช้งาน</span>':'ปิดใช้งาน'}</td><td><button class="small outline" data-action="edit-faculty" data-id="${esc(f.faculty_id)}">แก้ไข</button></td></tr>`).join('')}</tbody></table></div></article>`;}
+function users(){if(!state.admin)return '<div class="soft panel">กำลังอ่านข้อมูลผู้ใช้…</div>';return `<article class="panel soft"><div class="panel-title"><h2>บัญชีผู้ใช้</h2><button class="primary" data-action="add-user">${icon('plus')} เพิ่มผู้ใช้</button></div><p class="caption">Admin จัดการได้ทั้งหมด · Teacher เพิ่มและแก้ไขข้อมูลทุนได้ แต่ลบไม่ได้ · Owner ดูได้อย่างเดียว</p><div class="table-wrap"><table><thead><tr><th>ชื่อผู้ใช้</th><th>ชื่อแสดง</th><th>บทบาท</th><th>สถานะ</th><th>จัดการ</th></tr></thead><tbody>${state.admin.users.map(u=>`<tr><td>${esc(u.username)}</td><td>${esc(u.display_name)}</td><td><span class="pill">${esc(u.role)}</span></td><td>${u.active?'เปิดใช้งาน':'ปิดใช้งาน'}</td><td><button class="outline small" data-action="edit-user" data-id="${esc(u.username)}">แก้ไข / รีเซ็ต</button></td></tr>`).join('')}</tbody></table></div></article>`;}
+function settings(){return `<div class="settings-grid"><article class="panel soft"><h2>ชื่อระบบ</h2><form id="settings-form"><label class="field">ชื่อแสดง<input name="system_name" value="${esc(state.data.settings.find(x=>x.key==='system_name')?.value||'R-FUND Insight')}" required maxlength="100"></label><button class="primary">บันทึกชื่อระบบ</button></form></article><article class="panel soft"><h2>เกณฑ์คะแนนอัตโนมัติ</h2><p class="caption">ยังไม่กำหนดเกณฑ์ให้เอง ข้อมูลตั้งต้นใช้คะแนนเดิมจาก Excel<br>สูตรเมื่อเลือกอัตโนมัติ: min(5, เงินทุนต่อ FTE ÷ เป้าหมาย × 5)</p><form id="criteria-form"><div class="form-grid"><label class="field">ปีการศึกษา<input name="academic_year" type="number" min="2500" max="2700" step="1" required value="${esc(state.year||2568)}"></label><label class="field">คณะ<select name="faculty_id" required>${facultyOptions('','เลือกคณะ')}</select></label><label class="field span-two">เป้าหมายเงินทุนต่อ FTE สำหรับ 5 คะแนน (บาท)<input name="target_per_teacher" type="number" min="0.01" step="0.01" required></label></div><button class="primary">บันทึกเกณฑ์</button></form></article></div><article class="panel soft"><h2>เกณฑ์ที่กำหนดแล้ว</h2><p class="caption">เปลี่ยนเกณฑ์แล้วระบบจะคำนวณใหม่เฉพาะรายการที่เลือกคะแนนอัตโนมัติ</p><div class="table-wrap"><table><thead><tr><th>ปี</th><th>คณะ</th><th class="numeric">เป้าหมายบาท/FTE</th></tr></thead><tbody>${state.data.criteria.map(c=>`<tr><td>${c.academic_year}</td><td>${esc(state.data.faculties.find(f=>f.faculty_id===c.faculty_id)?.faculty_name||c.faculty_id)}</td><td class="numeric">${money(c.target_per_teacher)}</td></tr>`).join('')||'<tr><td colspan="3" class="empty">ยังไม่มีเกณฑ์ — คะแนนเดิมถูกเก็บไว้ครบถ้วน</td></tr>'}</tbody></table></div></article>`;}
+function audit(){if(!state.admin)return '<div class="panel soft">กำลังอ่านประวัติ…</div>';return `<article class="panel soft"><h2>รายการที่ลบแล้ว</h2><p class="caption">กู้คืนได้หากยังไม่มีข้อมูลคณะและปีเดียวกัน</p><div class="table-wrap"><table><thead><tr><th>ปี</th><th>คณะ</th><th>ผู้แก้ไขล่าสุด</th><th>กู้คืน</th></tr></thead><tbody>${state.admin.deleted.map(r=>`<tr><td>${r.academic_year}</td><td>${esc(r.faculty_name)}</td><td>${esc(r.updated_by)}</td><td><button class="outline small" data-action="restore" data-id="${esc(r.record_id)}">กู้คืน</button></td></tr>`).join('')||'<tr><td colspan="4" class="empty">ไม่มีรายการที่ลบ</td></tr>'}</tbody></table></div></article><article class="panel soft"><h2>ประวัติ 500 รายการล่าสุด</h2><div class="table-wrap"><table><thead><tr><th>เวลา</th><th>ผู้ใช้</th><th>การกระทำ</th><th>รายการ</th><th>รายละเอียด</th></tr></thead><tbody>${state.admin.audit.map((r,i)=>`<tr><td>${esc(new Date(r.timestamp).toLocaleString('th-TH'))}</td><td>${esc(r.username)}</td><td>${esc(r.action)}</td><td class="id-cell">${esc(r.entity_id)}</td><td><button class="small outline" data-action="audit-detail" data-id="${i}">ดู</button></td></tr>`).join('')}</tbody></table></div></article>`;}
+function render(){
+ if(!state.user||!state.data){renderLogin();return;}
+ if(['faculties','users','settings','audit'].includes(state.page)&&!isAdmin())state.page='dashboard';
+ const publicPages=['dashboard','funding','compare','faculty','reports'],adminPages=['faculties','users','settings','audit'];
+ const content={dashboard:overview,funding,compare,faculty,reports,faculties:facultyManagement,users,settings,audit}[state.page]();
+ app.innerHTML=`${state.demo?'<div class="demo-banner">ตัวอย่างหน้าจอจากไฟล์ Excel · ดูข้อมูลเท่านั้น · ยังไม่ได้เชื่อม Google Sheet <a href="#">ออกจากตัวอย่าง</a></div>':''}<div class="app-layout"><aside class="sidebar"><a class="brand" href="#" aria-label="R-FUND Insight"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJnIj48c3RvcCBzdG9wLWNvbG9yPSIjMjI5Y2ZmIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjNDkzMWZmIi8+PC9saW5lYXJHcmFkaWVudD48L2RlZnM+PHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iMjAiIGZpbGw9InVybCgjZykiLz48cGF0aCBkPSJNMTggNDNWMjFoMTJjMTEgMCAxMSAxNSAwIDE1SDE4bTExIDAgMTIgMTEiIGZpbGw9Im5vbmUiIHN0cm9rZT0id2hpdGUiIHN0cm9rZS13aWR0aD0iNSIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPjwvc3ZnPgo=" alt=""><span>R-FUND<span class="brand-light">Insight</span></span></a><div class="sidebar-label">WORKSPACE</div><nav aria-label="เมนูหลัก">${publicPages.map(p=>navButton(p)).join('')}${isAdmin()?`<div class="sidebar-label">ADMINISTRATION</div>${adminPages.map(p=>navButton(p)).join('')}`:''}</nav><div class="sidebar-bottom soft"><div class="db-label"><span class="live-dot"></span>${state.demo?'ข้อมูลตัวอย่าง':'Google Sheets'}</div><p>ฐานข้อมูลเงินทุน<br>งานวิจัยและงานสร้างสรรค์</p><span class="tiny">VERSION 1.0.0</span></div></aside><main class="workspace"><header class="topbar"><div class="breadcrumbs">Workspace <span>/</span> ${titles[state.page]}</div><div class="topbar-actions"><button class="icon-button" data-action="refresh" aria-label="รีเฟรชข้อมูล">${icon('refresh')}</button><button class="profile soft" data-action="password" title="เปลี่ยนรหัสผ่าน"><span class="avatar">${esc(state.user.display_name?.[0]||'R')}</span><span><b>${esc(state.user.display_name)}</b><small>${esc(state.user.role)}</small></span></button><button class="icon-button" data-action="logout" aria-label="ออกจากระบบ">${icon('logout')}</button></div></header><section class="page-head"><div><span class="eyebrow">R-FUND INSIGHT</span><h1>${titles[state.page]}</h1><p>${state.page==='dashboard'?'เงินสนับสนุนงานวิจัยและงานสร้างสรรค์ในมุมมองเดียว':'ข้อมูลที่ตรวจสอบได้ เพื่อการบริหารเงินทุนอย่างเป็นระบบ'}</p></div><div class="status-pill"><span class="live-dot"></span>${state.demo?'Preview mode':'เชื่อมต่อฐานข้อมูล'}<small>${state.demo?'2567 — 2568':new Date(state.data.synced_at).toLocaleTimeString('th-TH',{hour:'2-digit',minute:'2-digit'})}</small></div></section><div id="page-content">${content}</div><footer>R-FUND Insight <span>ข้อมูลล่าสุด ${state.demo?'จากไฟล์แนบ':new Date(state.data.synced_at).toLocaleString('th-TH')}</span></footer></main></div>`;
+}
+function navButton(p){return `<button data-page="${p}" class="nav-item ${state.page===p?'active':''}" ${state.page===p?'aria-current="page"':''}>${icon(glyphs[p])}<span>${titles[p]}</span></button>`;}
+async function go(page){state.page=page;render();if(isAdmin()&&['users','audit'].includes(page)&&!state.admin){try{state.admin=await api('adminData');render();}catch(e){toast(e.message,true);}}}
+function openDialog(title,body,formId,button='บันทึก'){
+ modal.innerHTML=`<div class="modal-header"><div><span class="eyebrow">R-FUND INSIGHT</span><h2 id="modal-title">${title}</h2></div><button class="icon-button" data-action="close-modal" aria-label="ปิด">×</button></div>${formId?`<form id="${formId}">${body}<p class="form-error" id="modal-error" role="alert"></p><div class="modal-footer"><button type="button" class="outline" data-action="close-modal">ยกเลิก</button><button class="primary" type="submit">${button}</button></div></form>`:body}`;
+ modal.showModal();
+}
+function fundingDialog(id){
+ const r=state.data.funding.find(x=>x.record_id===id)||{academic_year:state.year||years().at(-1)||2568,faculty_id:'',teacher_count:'',internal_fund:0,external_fund:0,score:0,score_mode:'MANUAL',note:''};
+ openDialog(id?'แก้ไขข้อมูลเงินทุน':'เพิ่มข้อมูลเงินทุน',`<input type="hidden" name="record_id" value="${esc(r.record_id||'')}"><input type="hidden" name="revision" value="${r.revision||''}"><div class="form-grid"><label class="field">ปีการศึกษา<input name="academic_year" type="number" min="2500" max="2700" step="1" value="${r.academic_year}" required></label><label class="field">คณะ<select name="faculty_id" required>${facultyOptions(r.faculty_id,'เลือกคณะ',true)}</select></label><label class="field span-two">จำนวนอาจารย์/FTE<input name="teacher_count" type="number" min="0.01" max="100000" step="any" value="${r.teacher_count}" required></label><label class="field">ทุนภายใน (บาท)<input name="internal_fund" type="number" min="0" max="10000000000000" step="0.01" value="${r.internal_fund}" required></label><label class="field">ทุนภายนอก (บาท)<input name="external_fund" type="number" min="0" max="10000000000000" step="0.01" value="${r.external_fund}" required></label><div class="calculated span-two"><span>เงินทุนรวม <b id="calculated-total">${money(r.total_fund||0)}</b></span><span>บาท/FTE <b id="calculated-average">${money(r.average_per_teacher||0)}</b></span></div><label class="field">วิธีให้คะแนน<select name="score_mode">${options([['MANUAL','คะแนนจากแหล่งข้อมูล'],['AUTO','คำนวณตามเกณฑ์']],r.score_mode)}</select></label><label class="field">คะแนน (0–5)<input name="score" type="number" min="0" max="5" step="any" value="${r.score}" required></label><label class="field span-two">หมายเหตุ<textarea name="note" maxlength="2000" rows="3">${esc(r.note)}</textarea></label></div><p class="caption" id="score-help">${r.score_mode==='AUTO'?'คำนวณจากเกณฑ์คณะและปีที่กำหนด':'คงคะแนนเดิมจากข้อมูลต้นทาง'}</p>`,'funding-form');calc();
+}
+function calc(){const f=document.querySelector('#funding-form');if(!f)return;const v=Object.fromEntries(new FormData(f)),total=Number(v.internal_fund||0)+Number(v.external_fund||0),avg=Number(v.teacher_count)>0?total/Number(v.teacher_count):null;document.querySelector('#calculated-total').textContent=money(total);document.querySelector('#calculated-average').textContent=money(avg);const auto=v.score_mode==='AUTO';f.elements.score.readOnly=auto;f.elements.score.required=!auto;const c=state.data.criteria.find(c=>Number(c.academic_year)===Number(v.academic_year)&&c.faculty_id===v.faculty_id);if(auto){f.elements.score.value=c&&avg!=null?Math.min(5,avg/Number(c.target_per_teacher)*5).toFixed(6):'';document.querySelector('#score-help').textContent=c?'เป้าหมายสำหรับ 5 คะแนน: '+money(c.target_per_teacher)+' บาท/FTE':'ยังไม่มีเกณฑ์ของคณะและปีนี้ กรุณาตั้งเกณฑ์ก่อน';}else document.querySelector('#score-help').textContent='ใช้คะแนนจากแหล่งข้อมูล (0–5)';}
+function facultyDialog(id){const f=state.data.faculties.find(x=>x.faculty_id===id)||{};openDialog(id?'แก้ไขคณะ':'เพิ่มคณะ',`<input type="hidden" name="faculty_id" value="${esc(id||'')}"><label class="field">ชื่อคณะ<input name="faculty_name" required maxlength="200" value="${esc(f.faculty_name||'')}"></label><label class="field">สถานะ<select name="active">${options([['true','เปิดใช้งาน'],['false','ปิดใช้งาน']],f.active===undefined?'true':String(bool(f.active)))}</select></label>`,'faculty-form');}
+function userDialog(id){const u=state.admin?.users.find(x=>x.username===id)||{role:'TEACHER',active:true};openDialog(id?'แก้ไขผู้ใช้ / รีเซ็ตรหัสผ่าน':'เพิ่มผู้ใช้',`<div class="form-grid"><label class="field">ชื่อผู้ใช้<input name="username" value="${esc(id||'')}" ${id?'readonly':''} required pattern="[a-z0-9._-]{3,60}"></label><label class="field">ชื่อแสดง<input name="display_name" value="${esc(u.display_name||'')}" required maxlength="200"></label><label class="field">บทบาท<select name="role">${options(['ADMIN','TEACHER','OWNER'].map(v=>[v,v]),u.role)}</select></label><label class="field">สถานะ<select name="active">${options([['true','เปิดใช้งาน'],['false','ปิดใช้งาน']],String(u.active))}</select></label><label class="field span-two">${id?'รหัสผ่านใหม่ (เว้นว่างเพื่อใช้เดิม)':'รหัสผ่าน'}<input name="password" type="password" minlength="8" maxlength="128" autocomplete="new-password" ${id?'':'required'}></label></div><p class="caption">รีเซ็ตรหัสผ่านหรือเปลี่ยนสิทธิ์แล้ว เซสชันเดิมของผู้ใช้จะหมดอายุ</p>`,'user-form');}
+function confirmDialog(title,body,action,id){openDialog(title,`<p>${body}</p><div class="modal-footer"><button class="outline" data-action="close-modal">ยกเลิก</button><button class="primary ${action==='confirm-delete'?'danger':''}" data-action="${action}" data-id="${esc(id)}">${action==='confirm-delete'?'ยืนยันลบ':'ยืนยันกู้คืน'}</button></div>`);}
+async function mutation(action,payload,button){
+ if(state.busy)return;state.busy=true;if(button){button.disabled=true;button.dataset.original=button.textContent;button.textContent='กำลังบันทึก…';}
+ try{await api(action,payload);modal.close();await load();await go(state.page);toast('บันทึกข้อมูลเรียบร้อยแล้ว');}
+ catch(e){const error=document.querySelector('#modal-error');if(error&&modal.open)error.textContent=e.message;else toast(e.message,true);}
+ finally{state.busy=false;if(button?.isConnected){button.disabled=false;button.textContent=button.dataset.original;}}
+}
+app.addEventListener('change',e=>{const key=e.target.dataset.filter;if(key){state[key]=e.target.value;render();}});
+let searchTimer;app.addEventListener('input',e=>{if(e.target.dataset.filter==='search'){state.search=e.target.value;const pos=e.target.selectionStart;clearTimeout(searchTimer);searchTimer=setTimeout(()=>{render();const x=app.querySelector('[data-filter="search"]');x.focus();x.setSelectionRange(pos,pos);},180);}});
+modal.addEventListener('input',calc);modal.addEventListener('change',calc);
+document.addEventListener('click',async e=>{
+ const btn=e.target.closest('button[data-action],button[data-page]');if(!btn)return;
+ if(btn.dataset.page){await go(btn.dataset.page);return;}
+ const action=btn.dataset.action,id=btn.dataset.id;
+ try{
+ switch(action){
+ case 'eye':{const input=document.querySelector('input[name="password"]');input.type=input.type==='password'?'text':'password';btn.setAttribute('aria-label',input.type==='password'?'แสดงรหัสผ่าน':'ซ่อนรหัสผ่าน');break;}
+ case 'close-modal':if(!state.busy)modal.close();break;
+ case 'reset':state.faculty='';state.search='';state.year=String(years().at(-1)||2568);render();break;
+ case 'refresh':if(!state.demo){btn.disabled=true;await load();await go(state.page);}else toast('ข้อมูลตัวอย่างจาก Excel');break;
+ case 'logout':if(!state.demo)await api('logout');state.user=null;state.data=null;state.admin=null;state.demo=false;renderLogin();break;
+ case 'password':if(state.demo){toast('ตัวอย่างเปิดให้ดูข้อมูลเท่านั้น');break;}openDialog('เปลี่ยนรหัสผ่าน',`<label class="field">รหัสผ่านปัจจุบัน<input name="current_password" type="password" required autocomplete="current-password"></label><label class="field">รหัสผ่านใหม่ (8–128 ตัวอักษร)<input name="password" type="password" required minlength="8" maxlength="128" autocomplete="new-password"></label><p class="caption">เปลี่ยนแล้วต้องเข้าสู่ระบบใหม่</p>`,'password-form','เปลี่ยนรหัสผ่าน');break;
+case 'add-funding':if(canWrite())fundingDialog();break;
+case 'edit-funding':if(canWrite())fundingDialog(id);break;
+ case 'delete-funding':{if(!isAdmin())break;const r=state.data.funding.find(r=>r.record_id===id);confirmDialog('ลบข้อมูลเงินทุน',`ลบ ${esc(r.faculty_name)} ปี ${r.academic_year}? รายการจะถูกเก็บไว้ในหน้าประวัติเพื่อกู้คืน`,'confirm-delete',id);break;}
+ case 'confirm-delete':{const r=state.data.funding.find(r=>r.record_id===id);await mutation('deleteFunding',{record_id:id,revision:r.revision},btn);break;}
+ case 'restore':{const r=state.admin.deleted.find(r=>r.record_id===id);confirmDialog('กู้คืนข้อมูล',`กู้คืน ${esc(r.faculty_name)} ปี ${r.academic_year}?`,'confirm-restore',id);break;}
+ case 'confirm-restore':{const r=state.admin.deleted.find(r=>r.record_id===id);await mutation('restoreFunding',{record_id:id,revision:r.revision},btn);break;}
+ case 'add-faculty':if(isAdmin())facultyDialog();break;
+ case 'edit-faculty':if(isAdmin())facultyDialog(id);break;
+ case 'add-user':if(isAdmin())userDialog();break;
+ case 'edit-user':if(isAdmin())userDialog(id);break;
+ case 'export-csv':exportCsv(reportRows(),'R-FUND-'+(state.year||'all')+'.csv');toast('ส่งออก CSV แล้ว');break;
+ case 'export-xlsx':download(xlsx(reportRows()),'R-FUND-'+(state.year||'all')+'.xlsx');toast('ส่งออก Excel แล้ว');break;
+ case 'print':window.print();break;
+ case 'audit-detail':{const r=state.admin.audit[Number(id)];openDialog('รายละเอียดการเปลี่ยนแปลง',`<h3>ก่อน</h3><pre>${esc(pretty(r.before_json))}</pre><h3>หลัง</h3><pre>${esc(pretty(r.after_json))}</pre><div class="modal-footer"><button class="outline" data-action="close-modal">ปิด</button></div>`);break;}
+ }
+ }catch(error){toast(error.message,true);}finally{if(btn.isConnected)btn.disabled=false;}
+});
+function pretty(v){try{return JSON.stringify(JSON.parse(v),null,2);}catch{return v;}}
+document.addEventListener('submit',async e=>{
+ const form=e.target;if(!form.id)return;e.preventDefault();if(state.busy)return;
+ const values=Object.fromEntries(new FormData(form)),button=form.querySelector('[type="submit"]')||form.querySelector('button.primary');
+ if(form.id==='login-form'){
+  state.busy=true;button.disabled=true;button.textContent='กำลังเข้าสู่ระบบ…';
+  try{await api('login',values);await load();render();}catch(error){const box=document.querySelector('#login-error');if(box)box.textContent=error.message;else toast(error.message,true);}finally{state.busy=false;if(button.isConnected){button.disabled=false;button.innerHTML=`เข้าสู่ระบบ ${icon('arrow')}`;}}return;
+ }
+ if(form.id==='password-form'){
+  state.busy=true;button.disabled=true;try{await api('changePassword',values);modal.close();state.user=null;state.data=null;renderLogin();toast('เปลี่ยนรหัสผ่านแล้ว กรุณาเข้าสู่ระบบใหม่');}catch(error){document.querySelector('#modal-error').textContent=error.message;}finally{state.busy=false;button.disabled=false;}return;
+ }
+ if(form.id==='funding-form'&&canWrite()){for(const k of ['academic_year','teacher_count','internal_fund','external_fund','score','revision'])if(values[k]!=='')values[k]=Number(values[k]);await mutation('saveFunding',values,button);return;}
+ if(!isAdmin())return;
+ if(form.id==='faculty-form'){values.active=values.active==='true';await mutation('saveFaculty',values,button);}
+ if(form.id==='user-form'){values.active=values.active==='true';await mutation('saveUser',values,button);}
+ if(form.id==='settings-form')await mutation('saveSettings',values,button);
+ if(form.id==='criteria-form')await mutation('saveSettings',{criterion:values},button);
+});
+modal.addEventListener('cancel',e=>{if(state.busy)e.preventDefault();});
+async function start(){
+ if(new URLSearchParams(location.search).get('demo')==='1'){
+  try{const res=await fetch('/assets/demo-data.json');if(!res.ok)throw new Error();const data=await res.json();state.demo=true;state.data={...data,criteria:[],settings:[],synced_at:new Date().toISOString()};state.user={display_name:'ผู้บริหาร',role:'OWNER'};state.year='2568';state.compareA='2567';state.compareB='2568';render();return;}catch{renderLogin();toast('ไม่มีข้อมูลตัวอย่างบนเว็บไซต์จริง กรุณาเข้าสู่ระบบ',true);return;}
+ }
+ try{await load();render();}catch(error){renderLogin();if(!error.message.includes('เข้าสู่ระบบ'))toast(error.message,true);}
+}
+
+const previewData={
+  "faculties": [
+    {
+      "faculty_id": "FAC001",
+      "faculty_name": "บริหารธุรกิจ",
+      "active": true
+    },
+    {
+      "faculty_id": "FAC002",
+      "faculty_name": "วิศวกรรมศาสตร์และเทคโนโลยี",
+      "active": true
+    },
+    {
+      "faculty_id": "FAC003",
+      "faculty_name": "ศิลปศาสตร์",
+      "active": true
+    },
+    {
+      "faculty_id": "FAC004",
+      "faculty_name": "นิเทศศาสตร์",
+      "active": true
+    },
+    {
+      "faculty_id": "FAC005",
+      "faculty_name": "วิทยาการจัดการ",
+      "active": true
+    },
+    {
+      "faculty_id": "FAC006",
+      "faculty_name": "เกษตรนวัตและการจัดการ",
+      "active": true
+    },
+    {
+      "faculty_id": "FAC007",
+      "faculty_name": "การจัดการการศึกษาเชิงสร้างสรรค์",
+      "active": true
+    },
+    {
+      "faculty_id": "FAC008",
+      "faculty_name": "การจัดการธุรกิจอาหาร",
+      "active": true
+    },
+    {
+      "faculty_id": "FAC009",
+      "faculty_name": "อุตสาหกรรมเกษตร",
+      "active": true
+    },
+    {
+      "faculty_id": "FAC010",
+      "faculty_name": "การจัดการโลจิสติกส์และการคมนาคมขนส่ง",
+      "active": true
+    },
+    {
+      "faculty_id": "FAC011",
+      "faculty_name": "วิทยาลัยนานาชาติ",
+      "active": true
+    },
+    {
+      "faculty_id": "FAC012",
+      "faculty_name": "วิทยาลัยบัณฑิตศึกษาจีน",
+      "active": true
+    },
+    {
+      "faculty_id": "FAC013",
+      "faculty_name": "สำนักการศึกษาทั่วไป",
+      "active": true
+    },
+    {
+      "faculty_id": "FAC014",
+      "faculty_name": "คณะพยาบาลศาสตร์",
+      "active": true
+    }
+  ],
+  "funding": [
+    {
+      "record_id": "RF-2567-001",
+      "academic_year": 2567,
+      "faculty_id": "FAC001",
+      "faculty_name": "บริหารธุรกิจ",
+      "teacher_count": 78.5,
+      "internal_fund": 197800,
+      "external_fund": 1815000,
+      "total_fund": 2012800,
+      "average_per_teacher": 25640.76433121019,
+      "score": 5.0,
+      "score_mode": "MANUAL",
+      "note": "ข้อมูลตั้งต้นจาก Excel ปี 2567",
+      "revision": 1,
+      "status": "ACTIVE"
+    },
+    {
+      "record_id": "RF-2567-002",
+      "academic_year": 2567,
+      "faculty_id": "FAC002",
+      "faculty_name": "วิศวกรรมศาสตร์และเทคโนโลยี",
+      "teacher_count": 46,
+      "internal_fund": 141800,
+      "external_fund": 2893126,
+      "total_fund": 3034926,
+      "average_per_teacher": 65976.65217391304,
+      "score": 5.0,
+      "score_mode": "MANUAL",
+      "note": "ข้อมูลตั้งต้นจาก Excel ปี 2567",
+      "revision": 1,
+      "status": "ACTIVE"
+    },
+    {
+      "record_id": "RF-2567-003",
+      "academic_year": 2567,
+      "faculty_id": "FAC003",
+      "faculty_name": "ศิลปศาสตร์",
+      "teacher_count": 28,
+      "internal_fund": 57378.75,
+      "external_fund": 646600,
+      "total_fund": 703978.75,
+      "average_per_teacher": 25142.098214285714,
+      "score": 5.0,
+      "score_mode": "MANUAL",
+      "note": "ข้อมูลตั้งต้นจาก Excel ปี 2567",
+      "revision": 1,
+      "status": "ACTIVE"
+    },
+    {
+      "record_id": "RF-2567-004",
+      "academic_year": 2567,
+      "faculty_id": "FAC004",
+      "faculty_name": "นิเทศศาสตร์",
+      "teacher_count": 10,
+      "internal_fund": 0,
+      "external_fund": 1946383.5,
+      "total_fund": 1946383.5,
+      "average_per_teacher": 194638.35,
+      "score": 5.0,
+      "score_mode": "MANUAL",
+      "note": "ข้อมูลตั้งต้นจาก Excel ปี 2567",
+      "revision": 1,
+      "status": "ACTIVE"
+    },
+    {
+      "record_id": "RF-2567-005",
+      "academic_year": 2567,
+      "faculty_id": "FAC005",
+      "faculty_name": "วิทยาการจัดการ",
+      "teacher_count": 36.5,
+      "internal_fund": 0,
+      "external_fund": 4585655,
+      "total_fund": 4585655,
+      "average_per_teacher": 125634.38356164383,
+      "score": 5.0,
+      "score_mode": "MANUAL",
+      "note": "ข้อมูลตั้งต้นจาก Excel ปี 2567",
+      "revision": 1,
+      "status": "ACTIVE"
+    },
+    {
+      "record_id": "RF-2567-006",
+      "academic_year": 2567,
+      "faculty_id": "FAC006",
+      "faculty_name": "เกษตรนวัตและการจัดการ",
+      "teacher_count": 7,
+      "internal_fund": 227900,
+      "external_fund": 455000,
+      "total_fund": 682900,
+      "average_per_teacher": 97557.14285714286,
+      "score": 5.0,
+      "score_mode": "MANUAL",
+      "note": "ข้อมูลตั้งต้นจาก Excel ปี 2567",
+      "revision": 1,
+      "status": "ACTIVE"
+    },
+    {
+      "record_id": "RF-2567-007",
+      "academic_year": 2567,
+      "faculty_id": "FAC007",
+      "faculty_name": "การจัดการการศึกษาเชิงสร้างสรรค์",
+      "teacher_count": 29,
+      "internal_fund": 552871.25,
+      "external_fund": 225000,
+      "total_fund": 777871.25,
+      "average_per_teacher": 26823.146551724138,
+      "score": 5.0,
+      "score_mode": "MANUAL",
+      "note": "ข้อมูลตั้งต้นจาก Excel ปี 2567",
+      "revision": 1,
+      "status": "ACTIVE"
+    },
+    {
+      "record_id": "RF-2567-008",
+      "academic_year": 2567,
+      "faculty_id": "FAC008",
+      "faculty_name": "การจัดการธุรกิจอาหาร",
+      "teacher_count": 33,
+      "internal_fund": 351200,
+      "external_fund": 2113805.33,
+      "total_fund": 2465005.33,
+      "average_per_teacher": 74697.13121212121,
+      "score": 5.0,
+      "score_mode": "MANUAL",
+      "note": "ข้อมูลตั้งต้นจาก Excel ปี 2567",
+      "revision": 1,
+      "status": "ACTIVE"
+    },
+    {
+      "record_id": "RF-2567-009",
+      "academic_year": 2567,
+      "faculty_id": "FAC009",
+      "faculty_name": "อุตสาหกรรมเกษตร",
+      "teacher_count": 10,
+      "internal_fund": 697092,
+      "external_fund": 427500,
+      "total_fund": 1124592,
+      "average_per_teacher": 112459.2,
+      "score": 5.0,
+      "score_mode": "MANUAL",
+      "note": "ข้อมูลตั้งต้นจาก Excel ปี 2567",
+      "revision": 1,
+      "status": "ACTIVE"
+    },
+    {
+      "record_id": "RF-2567-010",
+      "academic_year": 2567,
+      "faculty_id": "FAC010",
+      "faculty_name": "การจัดการโลจิสติกส์และการคมนาคมขนส่ง",
+      "teacher_count": 16.5,
+      "internal_fund": 391200,
+      "external_fund": 25000,
+      "total_fund": 416200,
+      "average_per_teacher": 25224.242424242424,
+      "score": 5.0,
+      "score_mode": "MANUAL",
+      "note": "ข้อมูลตั้งต้นจาก Excel ปี 2567",
+      "revision": 1,
+      "status": "ACTIVE"
+    },
+    {
+      "record_id": "RF-2567-011",
+      "academic_year": 2567,
+      "faculty_id": "FAC011",
+      "faculty_name": "วิทยาลัยนานาชาติ",
+      "teacher_count": 15.5,
+      "internal_fund": 0,
+      "external_fund": 799920,
+      "total_fund": 799920,
+      "average_per_teacher": 51607.74193548387,
+      "score": 5.0,
+      "score_mode": "MANUAL",
+      "note": "ข้อมูลตั้งต้นจาก Excel ปี 2567",
+      "revision": 1,
+      "status": "ACTIVE"
+    },
+    {
+      "record_id": "RF-2567-012",
+      "academic_year": 2567,
+      "faculty_id": "FAC012",
+      "faculty_name": "วิทยาลัยบัณฑิตศึกษาจีน",
+      "teacher_count": 67,
+      "internal_fund": 251800,
+      "external_fund": 2052500,
+      "total_fund": 2304300,
+      "average_per_teacher": 34392.53731343283,
+      "score": 5.0,
+      "score_mode": "MANUAL",
+      "note": "ข้อมูลตั้งต้นจาก Excel ปี 2567",
+      "revision": 1,
+      "status": "ACTIVE"
+    },
+    {
+      "record_id": "RF-2567-013",
+      "academic_year": 2567,
+      "faculty_id": "FAC013",
+      "faculty_name": "สำนักการศึกษาทั่วไป",
+      "teacher_count": 59,
+      "internal_fund": 66000,
+      "external_fund": 1571235,
+      "total_fund": 1637235,
+      "average_per_teacher": 27749.745762711864,
+      "score": 5.0,
+      "score_mode": "MANUAL",
+      "note": "ข้อมูลตั้งต้นจาก Excel ปี 2567",
+      "revision": 1,
+      "status": "ACTIVE"
+    },
+    {
+      "record_id": "RF-2567-014",
+      "academic_year": 2567,
+      "faculty_id": "FAC014",
+      "faculty_name": "คณะพยาบาลศาสตร์",
+      "teacher_count": 20,
+      "internal_fund": 0,
+      "external_fund": 2849730.8,
+      "total_fund": 2849730.8,
+      "average_per_teacher": 142486.53999999998,
+      "score": 5.0,
+      "score_mode": "MANUAL",
+      "note": "ข้อมูลตั้งต้นจาก Excel ปี 2567",
+      "revision": 1,
+      "status": "ACTIVE"
+    },
+    {
+      "record_id": "RF-2568-001",
+      "academic_year": 2568,
+      "faculty_id": "FAC001",
+      "faculty_name": "บริหารธุรกิจ",
+      "teacher_count": 72,
+      "internal_fund": 185975,
+      "external_fund": 16785483,
+      "total_fund": 16971458,
+      "average_per_teacher": 235714.69444444444,
+      "score": 5.0,
+      "score_mode": "MANUAL",
+      "note": "ข้อมูลตั้งต้นจาก Excel ปี 2568",
+      "revision": 1,
+      "status": "ACTIVE"
+    },
+    {
+      "record_id": "RF-2568-002",
+      "academic_year": 2568,
+      "faculty_id": "FAC002",
+      "faculty_name": "วิศวกรรมศาสตร์และเทคโนโลยี",
+      "teacher_count": 45,
+      "internal_fund": 120548,
+      "external_fund": 2548756,
+      "total_fund": 2669304,
+      "average_per_teacher": 59317.86666666667,
+      "score": 4.943155555555556,
+      "score_mode": "MANUAL",
+      "note": "ข้อมูลตั้งต้นจาก Excel ปี 2568",
+      "revision": 1,
+      "status": "ACTIVE"
+    },
+    {
+      "record_id": "RF-2568-003",
+      "academic_year": 2568,
+      "faculty_id": "FAC003",
+      "faculty_name": "ศิลปศาสตร์",
+      "teacher_count": 27,
+      "internal_fund": 98457,
+      "external_fund": 548761,
+      "total_fund": 647218,
+      "average_per_teacher": 23971.037037037036,
+      "score": 4.7942074074074075,
+      "score_mode": "MANUAL",
+      "note": "ข้อมูลตั้งต้นจาก Excel ปี 2568",
+      "revision": 1,
+      "status": "ACTIVE"
+    },
+    {
+      "record_id": "RF-2568-004",
+      "academic_year": 2568,
+      "faculty_id": "FAC004",
+      "faculty_name": "นิเทศศาสตร์",
+      "teacher_count": 11,
+      "internal_fund": 54876,
+      "external_fund": 325487,
+      "total_fund": 380363,
+      "average_per_teacher": 34578.454545454544,
+      "score": 5.0,
+      "score_mode": "MANUAL",
+      "note": "ข้อมูลตั้งต้นจาก Excel ปี 2568",
+      "revision": 1,
+      "status": "ACTIVE"
+    },
+    {
+      "record_id": "RF-2568-005",
+      "academic_year": 2568,
+      "faculty_id": "FAC005",
+      "faculty_name": "วิทยาการจัดการ",
+      "teacher_count": 37,
+      "internal_fund": 87548,
+      "external_fund": 6584752,
+      "total_fund": 6672300,
+      "average_per_teacher": 180332.43243243243,
+      "score": 5.0,
+      "score_mode": "MANUAL",
+      "note": "ข้อมูลตั้งต้นจาก Excel ปี 2568",
+      "revision": 1,
+      "status": "ACTIVE"
+    },
+    {
+      "record_id": "RF-2568-006",
+      "academic_year": 2568,
+      "faculty_id": "FAC006",
+      "faculty_name": "เกษตรนวัตและการจัดการ",
+      "teacher_count": 6,
+      "internal_fund": 65847,
+      "external_fund": 325478,
+      "total_fund": 391325,
+      "average_per_teacher": 65220.833333333336,
+      "score": 5.0,
+      "score_mode": "MANUAL",
+      "note": "ข้อมูลตั้งต้นจาก Excel ปี 2568",
+      "revision": 1,
+      "status": "ACTIVE"
+    },
+    {
+      "record_id": "RF-2568-007",
+      "academic_year": 2568,
+      "faculty_id": "FAC007",
+      "faculty_name": "การจัดการการศึกษาเชิงสร้างสรรค์",
+      "teacher_count": 25,
+      "internal_fund": 236320,
+      "external_fund": 658478,
+      "total_fund": 894798,
+      "average_per_teacher": 35791.92,
+      "score": 5.0,
+      "score_mode": "MANUAL",
+      "note": "ข้อมูลตั้งต้นจาก Excel ปี 2568",
+      "revision": 1,
+      "status": "ACTIVE"
+    },
+    {
+      "record_id": "RF-2568-008",
+      "academic_year": 2568,
+      "faculty_id": "FAC008",
+      "faculty_name": "การจัดการธุรกิจอาหาร",
+      "teacher_count": 36,
+      "internal_fund": 351200,
+      "external_fund": 2113805.33,
+      "total_fund": 2465005.33,
+      "average_per_teacher": 68472.37027777778,
+      "score": 5.0,
+      "score_mode": "MANUAL",
+      "note": "ข้อมูลตั้งต้นจาก Excel ปี 2568",
+      "revision": 1,
+      "status": "ACTIVE"
+    },
+    {
+      "record_id": "RF-2568-009",
+      "academic_year": 2568,
+      "faculty_id": "FAC009",
+      "faculty_name": "อุตสาหกรรมเกษตร",
+      "teacher_count": 9,
+      "internal_fund": 22025,
+      "external_fund": 427500,
+      "total_fund": 449525,
+      "average_per_teacher": 49947.22222222222,
+      "score": 4.162268518518518,
+      "score_mode": "MANUAL",
+      "note": "ข้อมูลตั้งต้นจาก Excel ปี 2568",
+      "revision": 1,
+      "status": "ACTIVE"
+    },
+    {
+      "record_id": "RF-2568-010",
+      "academic_year": 2568,
+      "faculty_id": "FAC010",
+      "faculty_name": "การจัดการโลจิสติกส์และการคมนาคมขนส่ง",
+      "teacher_count": 15,
+      "internal_fund": 45367,
+      "external_fund": 3625480,
+      "total_fund": 3670847,
+      "average_per_teacher": 244723.13333333333,
+      "score": 5.0,
+      "score_mode": "MANUAL",
+      "note": "ข้อมูลตั้งต้นจาก Excel ปี 2568",
+      "revision": 1,
+      "status": "ACTIVE"
+    },
+    {
+      "record_id": "RF-2568-011",
+      "academic_year": 2568,
+      "faculty_id": "FAC011",
+      "faculty_name": "วิทยาลัยนานาชาติ",
+      "teacher_count": 14,
+      "internal_fund": 56785,
+      "external_fund": 6584972,
+      "total_fund": 6641757,
+      "average_per_teacher": 474411.21428571426,
+      "score": 5.0,
+      "score_mode": "MANUAL",
+      "note": "ข้อมูลตั้งต้นจาก Excel ปี 2568",
+      "revision": 1,
+      "status": "ACTIVE"
+    },
+    {
+      "record_id": "RF-2568-012",
+      "academic_year": 2568,
+      "faculty_id": "FAC012",
+      "faculty_name": "วิทยาลัยบัณฑิตศึกษาจีน",
+      "teacher_count": 65,
+      "internal_fund": 256485,
+      "external_fund": 3256485,
+      "total_fund": 3512970,
+      "average_per_teacher": 54045.692307692305,
+      "score": 5.0,
+      "score_mode": "MANUAL",
+      "note": "ข้อมูลตั้งต้นจาก Excel ปี 2568",
+      "revision": 1,
+      "status": "ACTIVE"
+    },
+    {
+      "record_id": "RF-2568-013",
+      "academic_year": 2568,
+      "faculty_id": "FAC013",
+      "faculty_name": "สำนักการศึกษาทั่วไป",
+      "teacher_count": 57,
+      "internal_fund": 52412,
+      "external_fund": 2365366,
+      "total_fund": 2417778,
+      "average_per_teacher": 42417.15789473684,
+      "score": 5.0,
+      "score_mode": "MANUAL",
+      "note": "ข้อมูลตั้งต้นจาก Excel ปี 2568",
+      "revision": 1,
+      "status": "ACTIVE"
+    },
+    {
+      "record_id": "RF-2568-014",
+      "academic_year": 2568,
+      "faculty_id": "FAC014",
+      "faculty_name": "คณะพยาบาลศาสตร์",
+      "teacher_count": 18,
+      "internal_fund": 36548,
+      "external_fund": 3564875,
+      "total_fund": 3601423,
+      "average_per_teacher": 200079.05555555556,
+      "score": 5.0,
+      "score_mode": "MANUAL",
+      "note": "ข้อมูลตั้งต้นจาก Excel ปี 2568",
+      "revision": 1,
+      "status": "ACTIVE"
+    }
+  ]
+};state.demo=true;state.user={display_name:'ผู้บริหาร',role:'OWNER'};state.data={...previewData,settings:[],criteria:[],synced_at:new Date().toISOString()};state.year='2568';state.compareA='2567';state.compareB='2568';render();</script></body></html>
