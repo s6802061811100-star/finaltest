@@ -1,4 +1,4 @@
-/** R-FUND Insight 1.0.0 — Google Sheets is the only database. */
+/** R-FUND Insight 1.0.1 — Google Sheets is the only database. */
 const SPREADSHEET_ID = '1WhvjrX5mX6DHbqLVrxbt76VLYjuNJR4S_Edb9Rjf2vs';
 const SCHEMA = {
   FundingData: ['record_id','academic_year','faculty_id','teacher_count','internal_fund','external_fund','total_fund','average_per_teacher','score','score_mode','note','status','revision','created_by','created_at','updated_by','updated_at'],
@@ -80,7 +80,7 @@ function setupSystem() {
     SpreadsheetApp.flush(); return 'พร้อมใช้งาน: บัญชี admin / teacher / owner รหัสเริ่มต้น 1234';
   } finally { lock.releaseLock(); }
 }
-function doGet() { return output_({ok:true,data:{service:'R-FUND Insight',version:'1.0.0'}}); }
+function doGet() { return output_({ok:true,data:{service:'R-FUND Insight',version:'1.0.1'}}); }
 function output_(data) { return ContentService.createTextOutput(JSON.stringify(data)).setMimeType(ContentService.MimeType.JSON); }
 function doPost(e) {
   let lock;

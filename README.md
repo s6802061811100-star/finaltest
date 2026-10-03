@@ -1,14 +1,14 @@
-# R-FUND Insight 1.0.0
+# R-FUND Insight 1.0.1
 
 ระบบเงินสนับสนุนงานวิจัยและงานสร้างสรรค์ หน้าตาขาวนูน เงานุ่ม และสีน้ำเงิน–ม่วงตามภาพอ้างอิง รองรับคอมพิวเตอร์ แท็บเล็ต และมือถือ
 
-**เว็บ: GitHub → Cloudflare Pages / API: Cloudflare Pages Functions → Google Apps Script / ฐานข้อมูลทั้งหมด: Google Sheet ที่คุณระบุ**
+**เว็บ: GitHub → Vercel / API: Vercel Functions → Google Apps Script / ฐานข้อมูลทั้งหมด: Google Sheet ที่คุณระบุ**
 
 Google Sheet: https://docs.google.com/spreadsheets/d/1WhvjrX5mX6DHbqLVrxbt76VLYjuNJR4S_Edb9Rjf2vs/edit
 
 ## เริ่มติดตั้ง
 
-ทำตาม [docs/INSTALL-TH.md](docs/INSTALL-TH.md) ตามลำดับ: Apps Script → GitHub → Cloudflare Pages → ทดสอบข้อมูลจริง
+ทำตาม [docs/INSTALL-TH.md](docs/INSTALL-TH.md) ตามลำดับ: Apps Script → GitHub → Vercel → ทดสอบข้อมูลจริง
 
 โค้ด Apps Script อยู่ใน **apps-script/Code.gs ไฟล์เดียว** คัดลอกทั้งหมดได้ทันที มีข้อมูลตั้งต้น 28 รายการจากไฟล์ `Data เงินทุน2567-2568.xlsx` อยู่แล้ว
 
@@ -63,7 +63,7 @@ npm test
 npm run build
 ```
 
-`npm test` ทดสอบ API กับตัวจำลองบริการ Google Sheets และตรวจตัวกลาง Cloudflare ไม่มีการเขียน Google Sheet จริง
+`npm test` ทดสอบ API กับตัวจำลองบริการ Google Sheets และตรวจตัวกลาง Vercel ไม่มีการเขียน Google Sheet จริง
 
 `npm run build` สร้าง `dist/` และตัดชุดข้อมูลตัวอย่างออก การเปิด `?demo=1` บนเว็บ Production จะไม่มีข้อมูลตัวอย่างให้โหลด
 
@@ -71,7 +71,7 @@ npm run build
 
 ## ขอบเขตการส่งมอบ
 
-ชุดนี้เป็นโค้ดพร้อมติดตั้ง ไม่ได้เผยแพร่ลงบัญชี Cloudflare หรือ Apps Script ของคุณ และยังไม่ได้ทดสอบกับ Google Sheet สด เพราะไม่มี Web App URL /exec ที่ Deploy แล้วหรือการเข้าถึงบัญชีของคุณ
+ชุดนี้เป็นโค้ดพร้อมติดตั้ง ไม่ได้เผยแพร่ลงบัญชี Vercel หรือ Apps Script ของคุณ และยังไม่ได้ทดสอบกับ Google Sheet สด เพราะไม่มี Web App URL /exec ที่ Deploy แล้วหรือการเข้าถึงบัญชีของคุณ
 
 ข้อมูลตั้งต้นอ้างอิงไฟล์ Excel แนบ ปัจจุบัน Google Sheet อาจมีข้อมูลที่เปลี่ยนไปจากไฟล์แนบ ควรตรวจยอดอีกครั้งหลัง setup ก่อนใช้งานจริง
 
@@ -83,4 +83,14 @@ npm run build
 - [โครงสร้างและสิทธิ์ API](docs/API.md)
 - [ผลการตรวจสอบและข้อจำกัด](docs/VALIDATION.md)
 
-Commit message: `Create R-FUND Insight v1.0.0 Google Sheets Cloudflare Teacher Permissions`
+Commit message: `Update R-FUND Insight v1.0.1 Vercel Hosting`
+
+## การเปลี่ยนจากเวอร์ชัน Cloudflare
+
+ใช้ `api/dispatch.js` เป็น Vercel Function และ `server/gateway.js` เป็น API gateway แทนโฟลเดอร์ functions ของ Cloudflare โดยมี `vercel.json` กำหนด Build และ security headers ให้แล้ว
+
+หากตั้ง Apps Script รุ่น 1.0.0 สำเร็จอยู่แล้ว ใช้ URL /exec และ API_SHARED_SECRET เดิมได้ ไม่จำเป็นต้องรัน setup ใหม่ ข้อมูลและสิทธิ์เดิมคงอยู่
+
+Vercel รุ่นนี้จำกัดการ Login ผิดตาม username โดยไม่เชื่อค่า IP จากผู้เรียก
+
+รุ่น Vercel นี้เพิ่มปุ่มพิมพ์ / บันทึก PDF และดาวน์โหลด CSV ในทุกหน้าข้อมูล CSV ตรงกับหน้าที่เปิดและตัวกรองปัจจุบัน เช่น เปรียบเทียบส่งออกสองปี, รายคณะส่งออกทุกปีของคณะที่เลือก และผู้ใช้ส่งออกเฉพาะชื่อ/บทบาท/สถานะ ไม่ส่ง password hash หรือ salt ส่วน PDF ใช้หน้าต่างพิมพ์ของ Browser → Save as PDF ไม่ใช่การสร้าง PDF โดย Server

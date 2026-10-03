@@ -1,8 +1,8 @@
-# คู่มือติดตั้ง R-FUND Insight 1.0.0
+# คู่มือติดตั้ง R-FUND Insight 1.0.1
 
 ใช้ Google Sheet ไฟล์นี้เป็นฐานข้อมูล: https://docs.google.com/spreadsheets/d/1WhvjrX5mX6DHbqLVrxbt76VLYjuNJR4S_Edb9Rjf2vs/edit
 
-ระบบนี้ต้องสร้างเป็น **Cloudflare Pages** ที่เชื่อม GitHub เพื่อให้ `/functions` ทำงาน อย่าใช้เฉพาะการอัปโหลดไฟล์ HTML บน Static Hosting
+ระบบนี้ใช้ **GitHub → Vercel → Google Apps Script → Google Sheet** และมี API `/api/dispatch` สำหรับ Login และ CRUD
 
 ## 1. เตรียม Google Apps Script
 
@@ -10,7 +10,7 @@
 2. ตั้งชื่อโปรเจกต์ `R-FUND Insight API`
 3. เปิดไฟล์ `Code.gs` ในหน้า Apps Script ลบโค้ดตัวอย่างทั้งหมด แล้วคัดลอกเนื้อหาทั้งไฟล์ `apps-script/Code.gs` จากชุดนี้ไปวางทับ และบันทึก ไม่ต้องแยกไฟล์ Seed
 4. เข้า **Project Settings → Script Properties → Add script property**
-5. เพิ่มชื่อ `API_SHARED_SECRET` โดยค่าต้องเป็นรหัสสุ่มเฉพาะระบบอย่างน้อย 32 ตัวอักษร เก็บค่านี้ไว้เพื่อนำไปใส่ Cloudflare ค่าเดียวกัน ไม่ใช้ `1234` เป็น secret
+5. เพิ่มชื่อ `API_SHARED_SECRET` โดยค่าต้องเป็นรหัสสุ่มเฉพาะระบบอย่างน้อย 32 ตัวอักษร เก็บค่านี้ไว้เพื่อนำไปใส่ Vercel ค่าเดียวกัน ไม่ใช้ `1234` เป็น secret
 6. หากใช้ Node.js ในเครื่อง สร้างค่าได้ด้วย `node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"` หรือใช้เครื่องมือสร้างรหัสผ่านที่คุณใช้อยู่ ห้ามใส่ค่า secret นี้ในไฟล์เว็บหรือ GitHub
 7. เลือกฟังก์ชัน **setupSystem** ที่แถบด้านบน แล้วกด **Run**
 8. อนุญาตให้สคริปต์เข้าถึง Spreadsheet ตามขั้นตอนของ Google ถ้านโยบายองค์กรไม่อนุญาต ให้ผู้ดูแล Google Workspace ตรวจสิทธิ์ก่อน
@@ -26,91 +26,99 @@
 1. กด **Deploy → New deployment**
 2. เลือกชนิด **Web app**
 3. **Execute as: Me** เพื่อให้สคริปต์อ่าน/เขียน Sheet ด้วยสิทธิ์เจ้าของโปรเจกต์
-4. **Who has access: Anyone** เพราะ Cloudflare ต้องเรียกจากฝั่ง Server; ทุกคำขอยังต้องผ่าน API_SHARED_SECRET และสิทธิ์ผู้ใช้อีกชั้น
+4. **Who has access: Anyone** เพราะ Vercel ต้องเรียกจากฝั่ง Server; ทุกคำขอยังต้องผ่าน API_SHARED_SECRET และสิทธิ์ผู้ใช้อีกชั้น
 5. กด Deploy และคัดลอก **Web app URL** ที่ลงท้าย `/exec`
 6. ลองเปิด URL ใน Browser จะเห็น JSON ชื่อบริการและเวอร์ชันเท่านั้น
 
-ถ้าไม่มีตัวเลือก Anyone แสดงว่านโยบาย Google Workspace จำกัด Web App ให้ผู้ดูแลตรวจสอบก่อน ขั้นตอนนี้จำเป็นสำหรับสถาปัตยกรรมที่ให้ Cloudflare เป็นตัวกลาง
+ถ้าไม่มีตัวเลือก Anyone แสดงว่านโยบาย Google Workspace จำกัด Web App ให้ผู้ดูแลตรวจสอบก่อน ขั้นตอนนี้จำเป็นสำหรับสถาปัตยกรรมที่ให้ Vercel เป็นตัวกลาง
 
-## 3. อัปโหลดโค้ดขึ้น GitHub
+## 3. อัปเดตไฟล์ใน GitHub
 
-1. แตก ZIP ที่ได้รับ เปิดโฟลเดอร์ `r-fund-insight`
-2. สร้าง Repository ของตัวเอง แนะนำเลือก **Private** เพราะ `apps-script/Code.gs` มีข้อมูลตั้งต้นจาก Excel อยู่ด้วย
-3. อัปโหลดไฟล์และโฟลเดอร์ทั้งหมดภายใน `r-fund-insight` เข้าระดับบนสุดของ Repository โดยเฉพาะ `package.json`, `scripts`, `public`, `functions`, `apps-script`
-4. ต้องเห็น `package.json` และ `functions` ที่หน้าแรก Repository ถ้าอยู่ในโฟลเดอร์ซ้อน ให้ตั้ง Root directory บน Cloudflare เป็นโฟลเดอร์นั้น
-5. ไม่ต้องอัปโหลด `dist`, `node_modules`, `test-results` หรือไฟล์ค่าลับ `*.env` / `.dev.vars`
+1. ดาวน์โหลดและแตก ZIP ชุด Vercel 1.0.1
+2. เปิด Repository `finaltest` ที่เลือกไว้ หรือ Repository ที่คุณต้องการใช้
+3. เลือก **Add file → Upload files**
+4. เปิดโฟลเดอร์ `r-fund-insight-vercel` ในเครื่อง แล้วลาก **ไฟล์และโฟลเดอร์ภายในทั้งหมด** ไปอัปโหลด โดย package.json และ vercel.json ต้องอยู่ระดับบนสุด ไม่อัปโหลดโฟลเดอร์ครอบซ้อนอีกชั้น
+5. กด Commit changes ใช้ข้อความ `Update R-FUND Insight v1.0.1 Vercel Hosting`
+6. ตรวจหน้าแรก Repository ต้องเห็น `api`, `server`, `public`, `scripts`, `apps-script`, `package.json`, `vercel.json`
 
-## 4. เชื่อม Cloudflare Pages กับ GitHub
+หากมีโฟลเดอร์ `functions` ของชุด Cloudflare เดิมอยู่ Vercel รุ่นนี้ไม่ได้เรียกใช้งานโฟลเดอร์นั้น
 
-1. ไปที่ Cloudflare Dashboard → **Workers & Pages** → สร้างแอป → เลือก **Pages** และ **Import an existing Git repository / Connect to Git** ตามเมนูที่แสดงในบัญชี
-2. อนุญาต GitHub เฉพาะ Repository ที่สร้าง แล้วเลือก Repository นั้น
-3. ตั้งค่าดังนี้
+## 4. สร้างโปรเจกต์ใน Vercel
+
+1. Vercel → **Create New → Project**
+2. Import Repository ที่อัปโหลด เช่น `finaltest`
+3. หน้า New Project ตั้งค่าดังนี้
 
 | รายการ | ค่า |
 |---|---|
-| Production branch | main หรือ branch หลักที่ใช้ |
-| Framework preset | None |
-| Build command | `npm run build` |
-| Build output directory | `dist` |
-| Root directory | เว้นว่าง ถ้า package.json อยู่ระดับบนสุด |
-| NODE_VERSION | `22` (ถ้าต้องระบุเวอร์ชัน) |
+| Vercel Team | บัญชี/ทีมที่คุณใช้ |
+| Project Name | `r-fund-insight` หรือชื่อที่คุณเลือก |
+| Root Directory | `./` หากไฟล์อยู่ระดับบนสุด |
+| Application / Framework Preset | `Other` |
+| Build Command | `npm run build` |
+| Output Directory | `dist` |
+| Install Command | ค่าเริ่มต้น หรือ `npm install` |
+| Node.js | `22.x` กำหนดใน package.json แล้ว |
 
-4. เพิ่ม Environment Variables/Secrets สำหรับ **Production**
+ไฟล์ `vercel.json` ตั้ง Build command และ Output directory ให้แล้ว หากหน้าเว็บเปิด Override ไว้ให้ตรวจว่าค่าตรงตาราง
 
-| ชื่อ | ค่าที่ใส่ |
+4. เปิด **Environment Variables** เพิ่มสองรายการ
+
+| ชื่อ | ค่า |
 |---|---|
-| `APPS_SCRIPT_URL` | Web app URL ของคุณจากข้อ 2 ลงท้าย `/exec` |
-| `API_SHARED_SECRET` | ค่าเดียวกับ Script Properties ในข้อ 1 |
+| `APPS_SCRIPT_URL` | Web app URL จาก Google Apps Script ลงท้าย `/exec` |
+| `API_SHARED_SECRET` | ค่าเดียวกับ Script Properties ของ Apps Script |
 
-5. `API_SHARED_SECRET` ให้เก็บเป็น **Secret/Encrypted** ของ Cloudflare ห้ามใส่ค่าในไฟล์ JavaScript หน้าเว็บ
-6. ถ้าจะใช้ Preview deployments ให้ตั้งสองค่านี้ใน Environment ของ Preview ด้วย หรือปล่อย Preview ไม่เชื่อมฐานจริงตามที่ต้องการ
-7. กด Save and Deploy รอ Build เสร็จ แล้วเปิด URL `https://ชื่อโปรเจกต์.pages.dev`
-8. ถ้าเพิ่ม/แก้ Environment Variables หลัง Deploy ต้อง **Redeploy** ให้ deployment ใหม่รับค่าที่ตั้ง
+5. อย่าใส่ secret ใน Source code หรือ GitHub และไม่ใช้ชื่อขึ้นต้น `NEXT_PUBLIC_` เพราะค่านี้ต้องอยู่ฝั่ง Server
+6. กด Deploy เมื่ออัปเดต GitHub และเพิ่มสองค่าเรียบร้อย
+7. หลังเสร็จให้เปิด Production URL ของโปรเจกต์
 
-ไม่มีขั้นตอนให้แก้ API URL ใน HTML: หน้าเว็บเรียก `/api/dispatch` ของโดเมนตัวเอง ตัวกลางอ่านค่า APPS_SCRIPT_URL จาก Cloudflare
+หากเคยติดตั้ง Apps Script รุ่น 1.0.0 ไว้แล้ว ให้ใช้ URL /exec และ secret เดิม ไม่จำเป็นต้องติดตั้ง Apps Script ใหม่ การเปลี่ยนโฮสต์นี้ไม่ได้เปลี่ยนฐานข้อมูล
 
-## 5. ตรวจระบบจริงหลังติดตั้ง
+## 5. ตรวจการใช้งานจริง
 
-1. เข้าด้วย `admin / 1234` ดู Dashboard ปี 2568: ยอดรวม **51,386,071.33 บาท**, FTE **437**; ปี 2567: **25,341,497.63 บาท**, FTE **456** ถ้ายังไม่ได้เพิ่มหรือแก้ข้อมูล
-2. กดชื่อผู้ใช้มุมขวาบนเพื่อเปลี่ยนรหัสผ่าน จากนั้น Login ใหม่
-3. หน้า **ข้อมูลเงินทุน → เพิ่มข้อมูล** เลือกปีใหม่ เช่น 2569 และคณะที่มีอยู่ กรอก FTE และทุน แล้วบันทึก
-4. เปิด Google Sheet `FundingData` ตรวจว่ามีแถวใหม่จริง แล้วแก้รายการจากเว็บและตรวจแถวเดิมอีกครั้ง
-5. เข้าด้วย `teacher / 1234` ตรวจว่ามี **เพิ่มข้อมูล** และ **แก้ไข** แต่ไม่มี **ลบ**; ทดลองเพิ่ม/แก้รายการทดสอบ
-6. เข้าด้วย `owner / 1234` ตรวจว่าไม่มีเพิ่ม แก้ไข หรือลบ และเปิดรายงานได้
-7. กลับเข้า Admin ลบรายการทดสอบ ตรวจว่า `status` เป็น `DELETED` และหน้าเว็บไม่แสดงรายการ แล้วไปหน้าประวัติ กู้คืนและตรวจกลับมาได้
-8. หน้ารายงาน กรองปีและคณะ → ส่งออก Excel/CSV ตรวจรายการที่ได้; พิมพ์ / PDF → เลือก Save as PDF ตั้งเป็นแนวนอน
-9. เปลี่ยนรหัสผ่าน teacher และ owner ด้วย หากมีผู้ใช้หลายคน ให้ Admin สร้างบัญชีเฉพาะบุคคล ไม่ใช้บัญชี teacher ร่วมกัน เพราะ Login ใหม่จะยกเลิกเซสชันเดิมของบัญชีนั้น
+1. Login `admin / 1234` หากยังไม่เปลี่ยนรหัส
+2. Dashboard ปี 2568 ควรมีเงินทุนรวม 51,386,071.33 บาท และ FTE 437 หากข้อมูลตั้งต้นยังไม่ได้แก้
+3. กดชื่อผู้ใช้มุมขวาบนเพื่อเปลี่ยนรหัสผ่านของตนเอง แล้ว Login ใหม่
+4. เพิ่มรายการทดสอบในปีใหม่ เช่น 2569 และตรวจแถวใหม่ใน FundingData ของ Google Sheet
+5. ทดลองแก้จากเว็บ แล้วตรวจแถวเดิมใน Sheet
+6. Teacher เพิ่ม/แก้ทุนได้ แต่ไม่มีปุ่มลบ; Owner ไม่มีเพิ่ม/แก้/ลบ
+7. Admin ลบรายการทดสอบ แล้วกู้คืนผ่านหน้าประวัติ
+8. รายงานส่งออก Excel / CSV และพิมพ์ PDF ผ่าน Browser
+9. หากผู้ใช้หลายคน ให้ Admin สร้างบัญชีเฉพาะบุคคล เพราะ Login ของชื่อผู้ใช้เดียวกันยกเลิกเซสชันเดิม
 
-## 6. อัปเดตระบบครั้งถัดไป
+## 6. การอัปเดตและแก้ปัญหา
 
-- หน้าเว็บ: แก้โค้ดและ Push GitHub ให้ Pages Build/Deploy ใหม่
-- Apps Script: วาง Code.gs ฉบับใหม่ทั้งไฟล์ → Save → Deploy → Manage deployments → Edit → New version → Deploy เพื่อคง URL เดิม
-- ไม่ต้องรัน setupSystem ทุกครั้ง; หากรันซ้ำจะไม่ลบหรือเขียนทับข้อมูลทุนที่มีอยู่
-- ก่อนเปลี่ยนโครงสร้างฐานข้อมูล ให้สำเนา Google Sheet ไว้เป็น backup
-
-## แก้ปัญหาที่พบบ่อย
+- แก้หน้าเว็บ → Push GitHub → Vercel Deploy อัตโนมัติ
+- แก้ Environment Variables → Redeploy ให้ Deployment ใหม่รับค่าที่ตั้ง
+- แก้ Apps Script → Save → Deploy → Manage deployments → Edit → New version → Deploy เพื่อคง URL เดิม
+- ห้ามเปลี่ยน PASSWORD_PEPPER หรือรหัสข้อมูลภายใน Sheet เอง
 
 | อาการ | วิธีตรวจ |
 |---|---|
-| แจ้งยังไม่ตั้งค่า URL/secret | ตรวจชื่อ Environment Variables ใน Production และ Redeploy |
-| Apps Script ไม่ส่ง JSON | ใช้ URL `/exec`, ตั้ง Anyone, Deploy เวอร์ชันใหม่ และทดลองเปิด URL |
-| ไม่ได้รับอนุญาตให้เรียก API | ตรวจ API_SHARED_SECRET ให้ตรงกันทุกตัวทั้ง Apps Script และ Cloudflare |
-| กรุณารัน setupSystem | รันฟังก์ชันใน Apps Script ด้วยบัญชีที่แก้ไข Sheet ได้ |
-| หัวตารางไม่ตรง | ห้ามแก้ชื่อหรือย้ายคอลัมน์ฐานข้อมูล; ตรวจหัวตารางตาม docs/API.md |
-| Login แล้วกลับหน้า Login | ใช้ HTTPS URL จริงของ Pages ตรวจ Cookie ไม่ถูกบล็อก และตรวจเซสชัน/บัญชี |
-| ข้อมูลคณะ–ปีซ้ำ | แก้รายการเดิม หรือกู้คืนรายการที่ลบ ห้ามเพิ่มรายการคณะ–ปีเดียวกันซ้ำ |
-| ข้อมูลเปลี่ยนโดยผู้ใช้อื่น | กดรีเฟรช เปิดรายการใหม่ แล้วแก้อีกครั้ง |
-| ยังยืนยันผลบันทึกไม่ได้ | กดรีเฟรชตรวจว่าข้อมูลถูกบันทึกแล้วหรือยัง ก่อนกดบันทึกซ้ำ |
-| คะแนนอัตโนมัติไม่มีเกณฑ์ | Admin ต้องตั้งเกณฑ์คณะและปีนั้นก่อน หรือใช้คะแนนจากต้นทาง |
-| เปิด index.html ตรงในเครื่องไม่ทำงาน | ใช้ npm run preview; ES Modules ต้องเปิดผ่าน HTTP |
-| แก้ตัวเลขใน Sheet แล้วค่ารวมไม่เปลี่ยน | การคำนวณอยู่ที่ API ให้แก้ผ่านหน้าเว็บ; อย่าแก้ derived columns โดยตรง |
+| API 404 | ต้องมี api/dispatch.js และ vercel.json อยู่ใน Root ของโปรเจกต์ ไม่ใช่ใช้ชุด Cloudflare |
+| ยังไม่ได้ตั้งค่า URL/secret | ตรวจสองค่าใน Vercel Project Settings → Environment Variables แล้ว Redeploy |
+| Apps Script ไม่ส่ง JSON | ตรวจ URL /exec, ตั้ง Anyone และ Deploy Apps Script เวอร์ชันล่าสุด |
+| ไม่ได้รับอนุญาตให้เรียก API | API_SHARED_SECRET ต้องตรงกันทั้งสองฝั่ง |
+| กรุณารัน setupSystem | รันจาก Apps Script ด้วยบัญชีที่แก้ไข Sheet ได้ |
+| ข้อมูลคณะ–ปีซ้ำ | ใช้แก้รายการเดิมหรือกู้คืน ห้ามเพิ่มคณะและปีเดียวกันซ้ำ |
+| เซสชันหมดอายุ | Login ใหม่ และตรวจบัญชีว่าเปิดใช้งานอยู่ |
+| ยังยืนยันผลบันทึกไม่ได้ | กดรีเฟรชตรวจฐานจริงก่อนลองบันทึกอีกครั้ง |
+| คะแนน AUTO ไม่มีเกณฑ์ | Admin ต้องตั้งเกณฑ์คณะและปีนั้น หรือใช้คะแนนเดิม |
 
-## เอกสารทางการที่ตรวจประกอบการติดตั้ง
+## เอกสารทางการ
 
-- Cloudflare Git integration: https://developers.cloudflare.com/pages/get-started/git-integration/
-- Cloudflare Pages Functions: https://developers.cloudflare.com/pages/functions/
-- Environment bindings: https://developers.cloudflare.com/pages/functions/bindings/
-- Google Apps Script Web Apps: https://developers.google.com/apps-script/guides/web
-- Content Service และการตาม Redirect: https://developers.google.com/apps-script/guides/content
+- https://vercel.com/docs/functions/runtimes/node-js
+- https://vercel.com/docs/project-configuration/vercel-json
+- https://developers.google.com/apps-script/guides/web
+- https://developers.google.com/apps-script/guides/content
 
-ชื่อเมนู Dashboard อาจเปลี่ยนตามรุ่น แต่ค่าของ Build และ Environment Variables ด้านบนเป็นค่าที่โค้ดชุดนี้ใช้
+## พิมพ์ / PDF / CSV ทุกหน้าข้อมูล
+
+1. เปิดหน้าที่ต้องการและเลือกตัวกรองให้เรียบร้อย
+2. กด “พิมพ์ / บันทึก PDF” ที่ด้านบนของข้อมูล
+3. เลือกเครื่องพิมพ์เพื่อพิมพ์กระดาษ หรือ Destination → Save as PDF เพื่อดาวน์โหลดไฟล์ PDF (Chrome บน Mac อาจมีเมนู Save as PDF หรือ PDF → Save as PDF)
+4. ตั้งแนวนอน Landscape และเปิด Background graphics หากต้องการเก็บสีกราฟ
+5. กด “ดาวน์โหลด CSV” เพื่อรับข้อมูลของหน้านั้น ไม่จำเป็นต้องไปหน้ารายงาน
+
+หน้าที่รองรับ: ภาพรวม ข้อมูลทุน เปรียบเทียบ รายคณะ รายงาน ฐานคณะ ผู้ใช้ เกณฑ์/ตั้งค่า และประวัติ โดยผู้ใช้เห็นและส่งออกได้ตามสิทธิ์ของตนเอง

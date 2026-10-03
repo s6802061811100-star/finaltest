@@ -1,6 +1,6 @@
 # ฐานข้อมูลและสิทธิ์ API
 
-Browser ส่ง JSON `{ action, payload }` แบบ POST ไป `/api/dispatch` บน Cloudflare โดเมนเดียวกัน ตัวกลางเพิ่ม shared secret และ session จาก HttpOnly cookie ให้ Apps Script ตรวจ ก่อนอ่านหรือเขียน Spreadsheet
+Browser ส่ง JSON `{ action, payload }` แบบ POST ไป `/api/dispatch` บน Vercel โดเมนเดียวกัน ตัวกลางเพิ่ม shared secret และ session จาก HttpOnly cookie ให้ Apps Script ตรวจ ก่อนอ่านหรือเขียน Spreadsheet
 
 | Action | Admin | Teacher | Owner |
 |---|:---:|:---:|:---:|
@@ -43,11 +43,11 @@ Teacher เพิ่มและแก้ไขข้อมูลทุนได
 
 - Seed สร้าง admin / teacher / owner รหัสเริ่มต้น 1234 ที่ฝั่ง Apps Script เท่านั้น
 - Salt รายผู้ใช้ + HMAC-SHA256 กับ PASSWORD_PEPPER ที่เก็บเฉพาะ Script Properties ค่า pepper ไม่อยู่ใน Sheet และไม่ได้ส่งให้ Browser
-- Token แบบ UUID สองชุด เก็บ SHA256 ใน Sessions และส่ง token ผ่าน Secure / HttpOnly / SameSite=Strict cookie บน Cloudflare
+- Token แบบ UUID สองชุด เก็บ SHA256 ใน Sessions และส่ง token ผ่าน Secure / HttpOnly / SameSite=Strict cookie บน Vercel
 - เซสชัน 8 ชั่วโมง Login ใหม่ยกเลิกเซสชันเดิมของชื่อผู้ใช้นั้น
 - ตรวจ Users ปัจจุบันทุกคำขอ การปิดบัญชีหรือเปลี่ยนสิทธิ์มีผลทันที
 - เปลี่ยนหรือรีเซ็ตรหัสผ่านยกเลิกเซสชันเก่า
-- Login ผิด 8 ครั้งต่อ username และ IP จะจำกัด 15 นาทีใน Apps Script Cache; Cache เป็นการป้องกันเบื้องต้น ไม่ใช่ระบบ WAF และอาจถูก eviction โดย Google
+- Login ผิด 8 ครั้งต่อ username จะจำกัด 15 นาทีใน Apps Script Cache; Cache เป็นการป้องกันเบื้องต้น ไม่ใช่ระบบ WAF และอาจถูก eviction โดย Google
 - Proxy ตรวจ Origin และไม่รับ token, secret หรือ IP จาก Browser โดยตรง
 - Shared secret ไม่ใช่ password ผู้ใช้; ใช้ค่าที่สุ่มยาวและเหมือนกันทั้งสองฝั่ง
 - Spreadsheet ต้องให้สิทธิ์แก้ไขเฉพาะผู้ดูแลที่ไว้ใจได้ ผู้ที่แก้ไขฐานข้อมูลเองได้ถือเป็นผู้ดูแลฐานข้อมูล
@@ -56,6 +56,8 @@ Teacher เพิ่มและแก้ไขข้อมูลทุนได
 
 `UNAUTHORIZED`, `FORBIDDEN`, `VALIDATION`, `NOT_FOUND`, `DUPLICATE`, `CONFLICT`, `RATE_LIMIT`, `SETUP_REQUIRED`, `SCHEMA_ERROR`, `NETWORK_UNCERTAIN`
 
-Apps Script ContentService ไม่กำหนด HTTP status เอง จึงส่ง `{ok:false,error}` แล้ว Cloudflare แปลงเป็น HTTP 4xx/5xx ที่ถูกต้องให้ Browser และตาม Redirect ของ ContentService ฝั่ง Server
+Apps Script ContentService ไม่กำหนด HTTP status เอง จึงส่ง `{ok:false,error}` แล้ว Vercel แปลงเป็น HTTP 4xx/5xx ที่ถูกต้องให้ Browser และตาม Redirect ของ ContentService ฝั่ง Server
 
 ไม่ใช้ JSONP, no-cors หรือฝังข้อมูลฐานทุนทั้งหมดในหน้าเว็บ Production
+
+Entry point บน Vercel: `api/dispatch.js` เป็น Web Standard fetch handler ใช้ Node.js 22 ตัวกลาง: `server/gateway.js`
